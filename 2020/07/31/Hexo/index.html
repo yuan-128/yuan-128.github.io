@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="window10系统使用hexo在github pages上搭建个人博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2020/07/31/Hexo/index.html">
+<meta property="og:site_name" content="不忘初心">
+<meta property="og:description" content="window10系统使用hexo在github pages上搭建个人博客">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-31T02:07:59.000Z">
+<meta property="article:modified_time" content="2020-07-31T02:21:21.401Z">
+<meta property="article:author" content="你的名字">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/31/Hexo/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Hexo | 不忘初心</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">不忘初心</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">人啊,总是容易忘记何为根本.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+        <li class="menu-item menu-item-film">
+
+    <a href="/film/" rel="section"><i class="fa fa-film fa-fw"></i>电影</a>
+
+  </li>
+        <li class="menu-item menu-item-book">
+
+    <a href="/book/" rel="section"><i class="fa fa-book fa-fw"></i>书单</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/31/Hexo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="你的名字">
+      <meta itemprop="description" content="个人博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不忘初心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-31 10:07:59 / 修改时间：10:21:21" itemprop="dateCreated datePublished" datetime="2020-07-31T10:07:59+08:00">2020-07-31</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>window10系统使用hexo在github pages上搭建个人博客</p>
+<a id="more"></a>
+
+<hr>
+<p>最难的是定位导致问题的操作　　　　——题记</p>
+<hr>
+<p>搭建步骤：</p>
+<ol>
+<li>安装node.js</li>
+<li>安装git</li>
+<li>安装hexo，完成本地的访问</li>
+<li>将网站部署到Github上</li>
+</ol>
+<hr>
+<h1 id="1-安装node-js"><a href="#1-安装node-js" class="headerlink" title="1. 安装node.js"></a>1. 安装node.js</h1><p>参考资料：<br>1.<a href="https://blog.csdn.net/antma/article/details/86104068" target="_blank" rel="noopener">https://blog.csdn.net/antma/article/details/86104068</a><br>2.<a href="https://www.cnblogs.com/aizai846/p/11441693.html" target="_blank" rel="noopener">https://www.cnblogs.com/aizai846/p/11441693.html</a></p>
+<p>补充内容：</p>
+<ul>
+<li>在参考资料1步骤3：配置npm在安装全局模块时的路径和缓存cache的路径 中要注意3点：</li>
+</ul>
+<ol>
+<li><p>配置自定义的全局模块安装目录：在node.js安装目录下新建两个文件夹 node_global和node_cache，然后在cmd命令下执行如下两个命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm config set prefix &quot;D:\Program Files\nodejs\node_global&quot;</span><br><span class="line">npm config set cache &quot;D:\Program Files\nodejs\node_cache&quot;</span><br></pre></td></tr></table></figure>
+<p>的时候,要注意改成自己电脑上新建的node_global和node_cache文件夹的路径。</p>
+</li>
+<li><p>在环境变量 -&gt; 系统变量（注意此处为系统变量）中新建一个变量名为 “NODE_PATH”， 值为“D:\Program Files\nodejs\node_modules”<br>此处有错误，正确步骤为：</p>
+</li>
+<li><p>在系统变量中新建一个变量名为 “NODE_PATH”， 值为<br>“D:\Program Files\nodejs\node_global”</p>
+</li>
+<li><p>在系统变量path中添加路径：%NODE_PATH%\</p>
+</li>
+<li><p>编辑  用户变量  里的Path，将相应npm的路径改为 D:\Program Files\nodejs\node_global （原来是：C:\Users\lenovo\AppData\Roaming\npm）<br>这一点的目的一个和：配置npm在安装全局模块时的路径有关。因为这个路径默认是：C:\Users\lenovo\AppData\Roaming\npm，刚好是模块的默认安装地址。改成 D:\Program Files\nodejs\node_global  之后，执行安装模块的命令（比如：npm install webpack -g），会发现 node_global 文件夹下出现新安装模块的一些配置文件。<br>所以第二点的目的应该是：使安装的各个模块的命令（比如：hexo g）在任意路径下可用。因为第二点配置的路径下面有很多可执行文件（.cmd）<br>此处要注意两点：</p>
+</li>
+<li><p>更改的环境变量是：用户变量中的path（平时一般更改的是系统变量的path，这里在系统变量里是找不到该路径的。）</p>
+</li>
+<li><p>同第一步，要注意改成自己电脑上新建的node_globa文件夹的目录。</p>
+</li>
+</ol>
+<ul>
+<li>在参考资料1步骤4：测试 中要注意1点：<br>即：完成步骤四的测试之后，要需要测试：webpack -v 命令是否能执行。如果能执行，说明上面第二点和第三点的配置没有问题。<br>这也是后续使用hexo命令的关键步骤！如果此处测试通不过，后续使用hexo init、hexo g等命令的时候会提示不是内部命令！！！如果后面出现此类情况，请第一时间检查环境变量！！！！！！</li>
+</ul>
+<p>至此，node.js安装成功！</p>
+<hr>
+<p>#　2.  安装git &amp; 初始化用户名和邮箱<br>参考资料:<br><a href="https://www.cnblogs.com/ximiaomiao/p/7140456.html" target="_blank" rel="noopener">https://www.cnblogs.com/ximiaomiao/p/7140456.html</a></p>
+<p>补充内容：<br>上述参考资料完成到:<br>三、Git初始化及仓库创建和操作<br>1、Git安装之后需要进行一些基本信息设置<br>　　a、设置用户名：git  config – global  user.name  ‘你再github上注册的用户名’;<br>　　b、设置用户邮箱：git  config – global  user.email  ‘注册时候的邮箱’;</p>
+<p>　　即可</p>
+<h1 id="3-安装hexo"><a href="#3-安装hexo" class="headerlink" title="3. 安装hexo"></a>3. 安装hexo</h1><p>前面git和nodejs安装好后，就可以安装hexo了。</p>
+<p>参考资料：<br>1.<a href="https://www.zhihu.com/tardis/sogou/art/44213627" target="_blank" rel="noopener">https://www.zhihu.com/tardis/sogou/art/44213627</a><br>2.<a href="https://www.himmy.cn/2019/07/06/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/各个步骤的反馈" target="_blank" rel="noopener">https://www.himmy.cn/2019/07/06/hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/各个步骤的反馈</a></p>
+<p>内容补充：</p>
+<ol>
+<li><p>创建一个文件夹 blog，然后在这个文件夹下直接右键 git bash 打开。</p>
+</li>
+<li><p>输入命令：”npm install -g hexo-cli”， 执行会比较慢，需要耐心等待。</p>
+</li>
+<li><p>用 hexo -v 查看一下版本，至此所需要的环境：node.js、git和框架：hexo就全部安装完了。</p>
+</li>
+<li><p>初始化一下hexo：hexo init myblog 执行会比较慢，需要耐心等待，失败了删掉 myblog 文件夹重来即可。<br>此命令会在步骤1新建的 blog 文件夹下面新建一个 myblog 文件夹，初始化的是myblog文件夹。 myblog文件夹里面是整个 hexo 框架的内容。以后更改主题、发布博客都在myblog文件夹下进行操作。<br>如果初始化使用命令：hexo init 则会初始化步骤1新建的blog文件夹<br>新建完成后，指定文件夹目录下有：<br>node_modules: 依赖包<br>public：存放生成的页面<br>scaffolds：生成文章的一些模板<br>source：用来存放你的文章<br>themes：主题<br>_config.yml: 博客的配置文件，学名为：站点配置文件，遵循标记语言YAML的语法格式（参考资料:<a href="https://www.jianshu.com/p/cea930923f3d）" target="_blank" rel="noopener">https://www.jianshu.com/p/cea930923f3d）</a></p>
+</li>
+<li><p>依次执行命令：hexo g （生成静态文件）和 hexo s （启动服务器）</p>
+</li>
+<li><p>在浏览器中输入：<a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a> 可以在本地查看生成的博客</p>
+</li>
+<li><p>使用 ctrl+c 可以把服务关掉。以后如果想在本地预览博客，使用 hexo s 命令启动服务器即可。但是要注意：git Bash Here 打开的位置必须位于步骤4初始化的文件夹里，可以参考配置文件 _config.yml 的位置，在能看到配置文件 _config.yml 的目录下打开 git Bash Here 即可。</p>
+</li>
+</ol>
+<p>至此，生成的博客可以在本地查看。完成到这一步，用了将近七个小时。</p>
+<hr>
+<h1 id="4-将网站部署到Github上"><a href="#4-将网站部署到Github上" class="headerlink" title="4. 将网站部署到Github上"></a>4. 将网站部署到Github上</h1><ol>
+<li><p>首先申请一个github账号，然后点击 create repository，按照：自己的昵称+.github.io 建立一个仓库（repository）（将来要部署到GitHub page的时候，才会被识别例：yuan-128.github.io）</p>
+</li>
+<li><p>在Blog目录下安装一个hexo部署插件 cnpm install –save hexo-deployer-git</p>
+</li>
+<li><p>将hexo和GitHub关联起来，也就是将hexo生成的文章部署到GitHub上：打开站点配置文件 _config.yml（不是主题配置文件，记事本打开即可），找到 deploy，改成（其中 repo ：后面的连接是你在步骤1新建的仓库的地址）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https:&#x2F;&#x2F;github.com&#x2F;你的GitHub昵称&#x2F;你的GitHub昵称.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后依次输入以下三条命令（此处输入命令的时候，必须是在上述用hexo初始化的文件夹下面打开 git bash（ hexo init 文件夹）），当出现： INFO Deploy done : git 时，说明部署成功，然后就可以在 http://你的GitHub昵称.github.io 这个网站看到你的博客了（（例：<a href="https://yuan-128.github.io/））。" target="_blank" rel="noopener">https://yuan-128.github.io/））。</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure></li>
+<li><p>如果上述命令不好使，可以尝试：hexo clean &amp;&amp; hexo g &amp;&amp; hexo d （注意要切换成英文输入法）。</p>
+</li>
+</ol>
+<p>至此，生成的博客可以在各个终端访问！</p>
+<hr>
+<h1 id="5-hexo更改主题"><a href="#5-hexo更改主题" class="headerlink" title="5. hexo更改主题"></a>5. hexo更改主题</h1><p>参考资料：<br>1.<a href="https://www.cnblogs.com/lijianming180/p/12401796.html" target="_blank" rel="noopener">https://www.cnblogs.com/lijianming180/p/12401796.html</a><br>2.<a href="https://www.cnblogs.com/songtianfa/p/11462386.html" target="_blank" rel="noopener">https://www.cnblogs.com/songtianfa/p/11462386.html</a><br>3.hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a><br>4.next主题配置文件：<a href="http://theme-next.iissnan.com/theme-settings.html" target="_blank" rel="noopener">http://theme-next.iissnan.com/theme-settings.html</a><br>5.next主题个性化配置：<a href="https://www.jianshu.com/p/208f2c4e3a16" target="_blank" rel="noopener">https://www.jianshu.com/p/208f2c4e3a16</a></p>
+<p>补充内容：</p>
+<ol>
+<li>命令解释：git clone 克隆地址 克隆之后的本地位置<br>如果要使用 next 主题，则克隆地址为：<a href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">https://github.com/theme-next/hexo-theme-next</a> （不要用：<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">https://github.com/iissnan/hexo-theme-next</a> 因为这个是2年前的next了），克隆之后的本地位置都写：themes/next ，指的是把主题文件下载到根目录下的 themes 文件夹下。</li>
+<li>把站点配置文件（根目录下的：_config.yml）中的 theme: xxx 中的xxx改为：next 。此处要注意冒号后面有一个空格不可删除！（详情请参考：标记语言YAML的语法格式）</li>
+<li>然后依次输入以下三条命令（此处输入命令的时候，必须是在上述用hexo初始化的文件夹下面打开 git bash（ hexo init 文件夹））。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure></li>
+<li>如果上述命令不好使，可以尝试：hexo clean &amp;&amp; hexo g &amp;&amp; hexo d （注意要切换成英文输入法）。以后每次 修改站点配置文件 / 修改主题配置文件 / 新建博客 / 新建页面，都需要执行步骤3 / 或步骤4 更新GitHub上的部署（到目前为止，步骤3 或 步骤4 总有一个是好使的，如果出现两个都不好使的情况，就等一下再刷新一下看看，最新的测试表明确实会有10s左右的延迟）</li>
+</ol>
+<p>5.　next主题有4种布局风格。可以在 themes/next/_config.yml （主题配置文件）中进行next主题风格的修改。主题配置文件还可进行：修改菜单目录等其他操作，将在下文进行介绍。详情可以参考：<br><a href="https://www.jianshu.com/p/208f2c4e3a16" target="_blank" rel="noopener">Next主题个性化配置</a></p>
+<p>#　6. hexo基本配置<br>1.<a href="https://hexo.io/zh-cn/docs/configuration" target="_blank" rel="noopener">hexo官方配置文档</a><br>2.<a href="https://zhuanlan.zhihu.com/p/25959864" target="_blank" rel="noopener">站点配置文件和主题配置文件</a></p>
+<p>#为Hexo的Next主题增加自定义menu菜单</p>
+<h2 id="一、添加主题配置文件中8个默认定义的menu菜单，分别是home、about、tags、categories、archives、schedule、sitemap、commonweal"><a href="#一、添加主题配置文件中8个默认定义的menu菜单，分别是home、about、tags、categories、archives、schedule、sitemap、commonweal" class="headerlink" title="一、添加主题配置文件中8个默认定义的menu菜单，分别是home、about、tags、categories、archives、schedule、sitemap、commonweal"></a>一、添加主题配置文件中8个默认定义的menu菜单，分别是home、about、tags、categories、archives、schedule、sitemap、commonweal</h2><p>参考资料：<br>1.<a href="https://blog.csdn.net/mqdxiaoxiao/article/details/93644533" target="_blank" rel="noopener">https://blog.csdn.net/mqdxiaoxiao/article/details/93644533</a><br>补充内容：</p>
+<ol>
+<li>以添加 tags 菜单为例：<br>步骤1：在根目录下打开 git bash，执行命令：<code>hexo new page &quot;tags&quot;</code> ；结果：在source文件下创建 tags 文件夹，文件夹下还会创建一个 index.md 文件；<br>步骤2：打开步骤1 tags 文件夹下的 index.md 文件，增加 <code>type: &quot;tags&quot;</code>（title和date是默认生成的，无需改动。如果是 categories 菜单，则应该增加：type: “categories”）；有的地方说还应该加入：<code>layout: &quot;tags&quot;</code>，从目前的测试结果来看，不加没有问题。<br>步骤3：在主题配置文件中找到 menu ，把 tags 前面的 <code>#</code> 删除（默认有首页和归档两个菜单）。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># ---------------------------------------------------------------</span><br><span class="line"># Menu Settings</span><br><span class="line"># ---------------------------------------------------------------</span><br><span class="line"># When running the site in a subdirectory (e.g. domain.tld&#x2F;blog), remove the leading slash from link value (&#x2F;archives -&gt; archives).</span><br><span class="line"># Usage: &#96;Key: &#x2F;link&#x2F; || icon&#96;</span><br><span class="line"># Key is the name of menu item. If the translation for this item is available, the translated text will be loaded, otherwise the Key name will be used. Key is case-senstive.</span><br><span class="line"># Value before &#96;||&#96; delimiter is the target link.</span><br><span class="line"># Value after &#96;||&#96; delimiter is the name of FontAwesome icon. If icon (with or without delimiter) is not specified, question icon will be loaded.</span><br><span class="line"># External url should start with http:&#x2F;&#x2F; or https:&#x2F;&#x2F;</span><br><span class="line">menu:</span><br><span class="line">  home: &#x2F; || home</span><br><span class="line">  #about: &#x2F;about&#x2F; || user</span><br><span class="line">  #tags: &#x2F;tags&#x2F; || tags</span><br><span class="line">  #categories: &#x2F;categories&#x2F; || th</span><br><span class="line">  archives: &#x2F;archives&#x2F; || archive</span><br><span class="line">  #schedule: &#x2F;schedule&#x2F; || calendar</span><br><span class="line">  #sitemap: &#x2F;sitemap.xml || sitemap</span><br><span class="line">  #commonweal: &#x2F;404&#x2F; || heartbeat</span><br></pre></td></tr></table></figure></li>
+<li>如果没有做步骤2，则会出现：在 _post 里面已经给 .md 文件头上上加上了 tags，在预览时，文章也是可以看到标签存在的，而在点击标签菜单时，没有显示所定义的标签。详情请参考： <a href="https://segmentfault.com/q/1010000006891147" target="_blank" rel="noopener">hexo 标签页不显示标签云</a></li>
+</ol>
+<h2 id="二、添加主题配置文件中8个默认定义的menu菜单之外的其他菜单"><a href="#二、添加主题配置文件中8个默认定义的menu菜单之外的其他菜单" class="headerlink" title="二、添加主题配置文件中8个默认定义的menu菜单之外的其他菜单"></a>二、添加主题配置文件中8个默认定义的menu菜单之外的其他菜单</h2><p>参考资料：<br>1.<a href="https://blog.csdn.net/u012195214/article/details/79204088?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~top_click~default-1-79204088.nonecase" target="_blank" rel="noopener">NexT主题的优化定制修改指南：(6) 添加自定义菜单</a><br>2.<a href="https://www.zhihu.com/tardis/sogou/art/28253572" target="_blank" rel="noopener">Hexo云标签和分类的使用。</a><br>补充内容：</p>
+<ol>
+<li>以添加 书单 菜单为例：<br>步骤1：在根目录下打开 git bash，执行命令：<code>hexo new page &quot;book&quot;</code> ；结果：在source文件下创建 book 文件夹，文件夹下还会创建一个 index.md 文件；<br>步骤2：打开步骤1 book 文件夹下的 index.md 文件，增加 <code>type: &quot;book&quot;</code>（title和date是默认生成的，无需改动。type 的值要和步骤1中新建的文件夹名称保持一致）<br>步骤3：在主题配置文件中找到 menu ，增加：<code>book: /book/ || fa fa-book</code> ，此处要注意空两个英文输入法的空格，和上面8个默认菜单对齐。<br>步骤4：此时新加的 书单 菜单已经能正常显示，只不过显示的名称是： book ，在：根目录\themes\next\languages\zh-CN.yml 文件夹中，找到 menu，在最后一行添加：<code>book: 书单</code> 就可以实现显示名称为：书单 的菜单了，此处要注意和上面8个默认菜单对其。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: 首页</span><br><span class="line">  archives: 归档</span><br><span class="line">  categories: 分类</span><br><span class="line">  tags: 标签</span><br><span class="line">  about: 关于</span><br><span class="line">  search: 搜索</span><br><span class="line">  schedule: 日程表</span><br><span class="line">  sitemap: 站点地图</span><br><span class="line">  commonweal: 公益 404</span><br><span class="line">  film: 电影</span><br><span class="line">  book: 书单</span><br></pre></td></tr></table></figure></li>
+<li><code>book: /book/ || fa fa-book</code> 解释：<br>book：　步骤1中新建的文件夹的名称，也是博客中显示的菜单的名称，可以通过映射的方式改成 “书单”，如上述步骤4所述。但其实此处也可以直接用 <code>书单: /book/ || fa fa-book</code> ，这样，无需修改根目录\themes\next\languages\zh-CN.yml 文件夹，博客中就会显示 “书单”。<br>/book/：　要和步骤2中 index.md 文件中添加的 type 的值一致。为了方便管理，我们一般保持：新建文件夹名称、index.md 文件的 type 值、<code>xxx1: /xxx2/ || fa fa-book</code>中的 xxx1 和 xxx2 保持一致。<br>fa fa-xxx：　xxx为<a href="https://fontawesome.com/v4.7.0/icons/" target="_blank" rel="noopener">fontawesome.com</a>中的一个图标名称，对应唯一一个图标，用于显示新建菜单前的图标，不添加会显示问号。比如：book 在<a href="https://fontawesome.com/v4.7.0/icons/" target="_blank" rel="noopener">fontawesome.com</a> 中对应的图标就是一本书，其实一些简单的图标对应的就是一些简单的单词，比如：film 对应的就是电影的图标。<br>#Next主题开启字数统计和阅读时长统计<br>参考资料：</li>
+<li><a href="https://www.dazhuanlan.com/2019/12/27/5e057b55aceca/" target="_blank" rel="noopener">Hexo Next主题开启字数统计和阅读时长统计</a></li>
+<li><a href="https://www.himmy.cn/2019/07/06/hexo%E5%8D%9A%E5%AE%A2next%E4%B8%BB%E9%A2%98%E4%B8%8B%E6%B7%BB%E5%8A%A0%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1%E5%92%8C%E9%98%85%E8%AF%BB%E6%97%B6%E9%95%BF/" target="_blank" rel="noopener">Hexo博客NexT主题下添加字数统计和阅读时长</a><br>补充内容：如果出现疑问，请详细阅读更改的配置文件部分的注释。</li>
+</ol>
+<h1 id="Hexo提供的3种默认的布局post、page和draft的用法"><a href="#Hexo提供的3种默认的布局post、page和draft的用法" class="headerlink" title="Hexo提供的3种默认的布局post、page和draft的用法"></a>Hexo提供的3种默认的布局post、page和draft的用法</h1><p>参考资料：<br>1.<a href="https://www.jianshu.com/p/9a56f7c13a79" target="_blank" rel="noopener">Hexo提供的3种默认的布局post、page和draft的用法</a><br>2.<a href="https://www.dazhuanlan.com/2019/10/23/5db00a5683e78/" target="_blank" rel="noopener">修改默认的post和draft的模板</a></p>
+<h1 id="日历云和分类雷达图"><a href="#日历云和分类雷达图" class="headerlink" title="日历云和分类雷达图"></a>日历云和分类雷达图</h1><p>参考资料：<br><a href="https://cloud.tencent.com/developer/article/1597223" target="_blank" rel="noopener">Hexo主题美化 | 给你的博客加上GITHUB日历云和分类雷达图</a></p>
+<p>#hexo添加新菜单并实现新菜单的文章归类<br>参考资料：<br> <a href="https://www.cnblogs.com/codebook/p/10312965.html" target="_blank" rel="noopener">hexo添加新菜单并实现新菜单的文章归类</a></p>
+<p>#NexT主题更改语言<br><a href="https://blog.csdn.net/mqdxiaoxiao/article/details/93251246" target="_blank" rel="noopener">NexT主题更改语言</a></p>
+<h1 id="写一篇博客"><a href="#写一篇博客" class="headerlink" title="写一篇博客"></a>写一篇博客</h1><p>参考资料：<br><a href="https://www.cnblogs.com/liuxianan/p/build-blog-website-by-hexo-github.html" target="_blank" rel="noopener">使用hexo+github搭建免费个人博客详细教程：写博客</a></p>
+<p>补充内容：</p>
+<ol>
+<li><code>hexo new &quot;new article&quot;</code>，结果：在source/_posts/目录下新建 new article.md 文件（后来发现其实也可以直接自己新建一个 .md 文件，不过不建议这种做法，因为通过这种方式创建的文章头部没有 title、date、tags 和 categories。这是因为通过执行 <code>hexo new &quot;new article&quot;</code>命令的方式新建文章时，是根据 scaffolds 目录下的新建页面的模板来完成的。详情可以参考：<a href="https://www.zhihu.com/tardis/sogou/art/28253572" target="_blank" rel="noopener">scaffolds目录</a>）</li>
+<li><code>hexo g -d  &amp; hexo s</code> 然后在 localhost:4000 查看</li>
+<li>最后上传命令 <code>hexo d</code> 直到出现输入GitHub账号密码时，方为成功（有时候不输入密码也会成功）。</li>
+<li>如果上述命令不好使可以直接使用：<code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</code>，这样就直接更新部署在GitHub上的个人博客了。建议事先使用 <code>hexo s</code>命令在本地预览一下。  </li>
+<li>以后每次新建或修改文件内容，都需要重新进行上述四个步骤。</li>
+</ol>
+<h1 id="设置hexo首页只显示部分摘要（不显示全文）"><a href="#设置hexo首页只显示部分摘要（不显示全文）" class="headerlink" title="设置hexo首页只显示部分摘要（不显示全文）"></a>设置hexo首页只显示部分摘要（不显示全文）</h1><p>参考资料：<br><a href="https://blog.csdn.net/yueyue200830/article/details/104470646?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~baidu_landing_v2~default-2-104470646.nonecase" target="_blank" rel="noopener">hexo首页只显示部分摘要</a></p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>　　在安装cnpm的时候已经貌似出现了问题。勉强走到hexo安装完之后，在 <code>hexo -v</code> 一步发生不是内部或外部命令的错误。其实根据之前配置 python 和 Java 环境变量的经验，就应该想到是环境变量的问题，但由于根本不理解这些文件以及步骤之间的联系，一开始并没有想到是环境变量的问题。网上的教程说这一步会很慢，容易出错等等，所以以为是下载过程中出了问题。</p>
+<p>　　在经历了 1. 多次重复执行命令；2. 搜索报错内容；之后，开始静下心来回顾整个步骤，去翻看创建的各个文件夹。突然回想起最开始安装node.js时，在测试步骤 查看安装的 webpack 包的版本信息时的命令语句，尝试了一下 cnpm 和 hexo 之后，发现可行。然后测试 <code>webpack -v</code> 发现也是不能识别的内部或外部命令。这个时候已经看到了一丝曙光，</p>
+<p>　　然后开始分析：<code>hexo -v</code> 和 <code>npm hexo -v</code> 的区别。最终问题定位到环境变量的配置上，而不是安装过程出了问题。然后根据 <a href="https://www.cnblogs.com/huchong-bk/p/11392653.html" target="_blank" rel="noopener">node.js安装后输入“node -v”提示’node’ 不是内部或外部命令，也不是可运行的程序的解决方法</a> 这篇文章提供的思路，终于解决了这个问题。这也是整个过程中遇到的最棘手的一个问题。因为无法确定是哪一步的操作导致了这个问题。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/30/%E9%83%A8%E7%BD%B2%E9%98%B6%E6%AE%B5%E6%9C%80%E7%BB%88%E6%B5%8B%E8%AF%95/" rel="prev" title="部署阶段最终测试">
+      <i class="fa fa-chevron-left"></i> 部署阶段最终测试
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-安装node-js"><span class="nav-number">1.</span> <span class="nav-text">1. 安装node.js</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-安装hexo"><span class="nav-number">2.</span> <span class="nav-text">3. 安装hexo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-将网站部署到Github上"><span class="nav-number">3.</span> <span class="nav-text">4. 将网站部署到Github上</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-hexo更改主题"><span class="nav-number">4.</span> <span class="nav-text">5. hexo更改主题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、添加主题配置文件中8个默认定义的menu菜单，分别是home、about、tags、categories、archives、schedule、sitemap、commonweal"><span class="nav-number">4.1.</span> <span class="nav-text">一、添加主题配置文件中8个默认定义的menu菜单，分别是home、about、tags、categories、archives、schedule、sitemap、commonweal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、添加主题配置文件中8个默认定义的menu菜单之外的其他菜单"><span class="nav-number">4.2.</span> <span class="nav-text">二、添加主题配置文件中8个默认定义的menu菜单之外的其他菜单</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo提供的3种默认的布局post、page和draft的用法"><span class="nav-number">5.</span> <span class="nav-text">Hexo提供的3种默认的布局post、page和draft的用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#日历云和分类雷达图"><span class="nav-number">6.</span> <span class="nav-text">日历云和分类雷达图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写一篇博客"><span class="nav-number">7.</span> <span class="nav-text">写一篇博客</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置hexo首页只显示部分摘要（不显示全文）"><span class="nav-number">8.</span> <span class="nav-text">设置hexo首页只显示部分摘要（不显示全文）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后记"><span class="nav-number">9.</span> <span class="nav-text">后记</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">你的名字</p>
+  <div class="site-description" itemprop="description">个人博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">你的名字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">9k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">8 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
