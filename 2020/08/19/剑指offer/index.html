@@ -28,7 +28,7 @@
 <meta property="og:description" content="参考资料： 剑指offer题目汇总">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-19T15:32:37.000Z">
-<meta property="article:modified_time" content="2020-08-23T15:02:23.641Z">
+<meta property="article:modified_time" content="2020-08-24T09:17:40.058Z">
 <meta property="article:author" content="你的名字">
 <meta property="article:tag" content="剑指offer">
 <meta name="twitter:card" content="summary">
@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-23 23:02:23" itemprop="dateModified" datetime="2020-08-23T23:02:23+08:00">2020-08-23</time>
+                <time title="修改时间：2020-08-24 17:17:40" itemprop="dateModified" datetime="2020-08-24T17:17:40+08:00">2020-08-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -240,14 +240,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>7.5k</span>
+              <span>9.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
+              <span>8 分钟</span>
             </span>
 
         </div>
@@ -268,6 +268,8 @@
 <p><a href="#13">13、调整数组顺序使奇数位于偶数前面</a>（08.21）</p>
 <p><a href="#19">19、顺时针打印矩阵</a>（08.22）</p>
 <p><a href="#28">28、数组中出现次数超过一半的数字</a>（08.23）</p>
+<p><a href="#30">30、连续子数组的最大和</a>（08.24）</p>
+<p><a href="#32">32、把数组排成最小的数</a>（08.25）</p>
 <h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><p><a href="#2">2、替换空格</a>（08.20）</p>
 <h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><p><a href="#3">3、从尾到头打印链表</a>（08.21）</p>
 <h1 id="树和二叉树"><a href="#树和二叉树" class="headerlink" title="树和二叉树"></a>树和二叉树</h1><p><a href="#4">4、从尾到头打印链表</a>（08.22）</p>
@@ -370,6 +372,30 @@
 <p>　　命题：如果数组中存在一个元素，它的数量超过数组长度的一半，最后的target一定是该数</p>
 <p>　　证明：用反证法。设该数为x，其数量为numx，其他数为y，其数量为numy。numx&gt;numy。假设最后的target的值不是x，则x全部被干掉了，而干掉一个x需要消耗一个y元素。所以至少需要numx个y元素：{1，2，1，3，1，4}，一个y干掉一个x最后一个元素是y，才能保证最后的数是y。而y元素的数量numy&lt;numx，所以必定不会出现target=y的情况。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">MoreThanHalfNum_Solution</span><span class="params">(<span class="keyword">int</span> [] array)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">int</span> target;</span><br><span class="line">        <span class="keyword">int</span> num;</span><br><span class="line">        <span class="keyword">int</span> j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (array.length==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        target=array[<span class="number">0</span>];</span><br><span class="line">        num=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (i=<span class="number">1</span>;i&lt;array.length;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (array[i]==target)</span><br><span class="line">                num++;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (array[i]!=target)</span><br><span class="line">            &#123;</span><br><span class="line">                num--;</span><br><span class="line">                <span class="keyword">if</span> (num==<span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    target=array[i];</span><br><span class="line">                    num=<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断target中的数字是否满足条件</span></span><br><span class="line">        <span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;array.length;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (array[i]==target)</span><br><span class="line">                j++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (j&gt;array.length/<span class="number">2</span>)</span><br><span class="line">            <span class="keyword">return</span> target;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p id='30'>30、连续子数组的最大和</p>
+
+<p>  <strong>题目描述：</strong></p>
+<p>  HZ偶尔会拿些专业问题来忽悠那些非计算机专业的同学。今天测试组开完会后,他又发话了:在古老的一维模式识别中,常常需要计算连续子向量的最大和,当向量全为正数的时候,问题很好解决。但是,如果向量中包含负数,是否应该包含某个负数,并期望旁边的正数会弥补它呢？例如:{6,-3,-2,7,-15,1,2,2},连续子向量的最大和为8(从第0个开始,到第3个为止)。给一个数组，返回它的最大连续子序列的和，你会不会被他忽悠住？(子向量的长度至少是1)。</p>
+<p>  <strong>解题思路：</strong></p>
+<p>　　此题为《计算机算法设计与分析》一书中动态规划一章中的例题：最大子段和。书中给出了4种解法，最好的便是动态规划的解法，只需O(n)的时间复杂度：</p>
+<p>　　１.穷举法。把所有子段列出来，找到最大的子段。i可取：0—n-1，j可取：0—n-1，一共有(n-1)(n-1)种情况。每一个子段又需要一个循环来求和，所以需要三个for循环，时间复杂度为：O(n^3)；</p>
+<p>　　２.改进的穷举法。以i开头的所有子段的和可以由上一以i开头的字段和在加上array[j]，不必再从i开始计算，如此便可省去求每一个子段的那个循环，只需要两个for循环，时间复杂度为：O(n^2);</p>
+<p>　　３.分治算法。不做详细讨论，其时间复杂度为：O(nlogn)；</p>
+<p>　　４.动态规划。改进的穷举法是找到：以i开头的子段的特点。而动态规划算法是找到：j结尾（包括j）的子段的特点。和最大的子段必定是以某个j结尾的，并且包括j。对于j的n种情况，求出以j结尾，并且包括j的子段的和，n个数中最大的那个数便是原数组的最大子段和。看上去似乎和穷举法相同，只不过穷举法是对于i的n中情况，求出以i开始，并且包括i的子段的和，n个数中最大的那个数便是原数组的最大子段和。而动态规划从j着眼的算法中，巧妙利用相邻两个j的最大子段和（以j结尾，并且包括j）之间的关系，省去了两层循环（开头i的循环和确定i和j之后求和的循环），把时间复杂度降低到：O(n)；着实巧妙。</p>
+<p>　　动态规划递归式：b[j]=max{b[j-1]+a[j]，a[j]}，1&lt;=j&lt;=n；其中b[j]：以j结尾并且包括j的子段的最大和。当b[j-1]&gt;0时，b[j]=b[j-1]+a[j]，当b[j-1]&lt;0时，b[j]=a[j]；</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#python</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">FindGreatestSumOfSubArray</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">    <span class="comment">/* 改进的穷举法</span></span><br><span class="line"><span class="comment">    	int i,j,sum;</span></span><br><span class="line"><span class="comment">        int target;</span></span><br><span class="line"><span class="comment">        target=array[0];</span></span><br><span class="line"><span class="comment">        for (i=0;i&lt;array.length;i++)</span></span><br><span class="line"><span class="comment">        &#123;</span></span><br><span class="line"><span class="comment">            sum=array[i];</span></span><br><span class="line"><span class="comment">            if (target&lt;sum)</span></span><br><span class="line"><span class="comment">                target=sum;</span></span><br><span class="line"><span class="comment">            for (j=i+1;j&lt;array.length;j++)</span></span><br><span class="line"><span class="comment">            &#123;</span></span><br><span class="line"><span class="comment">                sum+=array[j];</span></span><br><span class="line"><span class="comment">                if (target&lt;sum)</span></span><br><span class="line"><span class="comment">                    target=sum;</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        return target;</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="comment">//动态规划算法</span></span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">int</span> b;</span><br><span class="line">        <span class="keyword">int</span> sum;</span><br><span class="line">        b=sum=array[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (i=<span class="number">1</span>;i&lt;array.length;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (b&gt;<span class="number">0</span>)</span><br><span class="line">                b+=array[i];</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                b=array[i];</span><br><span class="line">            <span class="keyword">if</span> (sum&lt;b)</span><br><span class="line">                sum=b;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p id='32'>32、把数组排成最小的数</p>
+
+<p>  <strong>题目描述：</strong></p>
+<p>  输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。例如输入数组{3，32，321}，则打印出这三个数字能排成的最小数字为321323。</p>
+<p>  <strong>解题思路：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#python</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java</span></span><br></pre></td></tr></table></figure>
 
 
     </div>
@@ -531,13 +557,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">21k</span>
+    <span title="站点总字数">23k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">20 分钟</span>
+    <span title="站点阅读时长">21 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
