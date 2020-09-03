@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/2020/08/29/%E5%89%91%E6%8C%87offer(%E4%BA%8C)%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%88%E5%85%B19%E9%81%93%E9%A2%98%E7%9B%AE%EF%BC%89/1.png">
 <meta property="article:published_time" content="2020-08-29T14:47:57.000Z">
-<meta property="article:modified_time" content="2020-09-02T14:41:37.022Z">
+<meta property="article:modified_time" content="2020-09-03T02:20:10.866Z">
 <meta property="article:author" content="你的名字">
 <meta property="article:tag" content="剑指offer">
 <meta name="twitter:card" content="summary">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-02 22:41:37" itemprop="dateModified" datetime="2020-09-02T22:41:37+08:00">2020-09-02</time>
+                <time title="修改时间：2020-09-03 10:20:10" itemprop="dateModified" datetime="2020-09-03T10:20:10+08:00">2020-09-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -247,14 +247,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.9k</span>
+              <span>8.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>7 分钟</span>
             </span>
 
         </div>
@@ -280,6 +280,11 @@
 <p><a href="#27">27、字符串的排列</a>（09.01）</p>
 <p><a href="#34">34、第一个只出现一次的字符</a>（09.02）</p>
 <p><a href="#43">43、左旋转字符串</a>（09.03）</p>
+<p><a href="#44">44、反转单词序列</a>（09.04）</p>
+<p><a href="#49">49、把字符串转换成整数</a>（09.05）</p>
+<p><a href="#52">52、正则表达式匹配</a>（09.06）</p>
+<p><a href="#53">53、表示数值的字符串</a>（09.07）</p>
+<p><a href="#54">54、字符流中第一个不重复的字符</a>（09.08）</p>
 <hr>
 <p id="2">2、替换空格</p>
 
@@ -330,6 +335,67 @@
 
 <p>　　<strong>题目描述：</strong></p>
 <p>  汇编语言中有一种移位指令叫做循环左移（ROL），现在有个简单的任务，就是用字符串模拟这个指令的运算结果。对于一个给定的字符序列S，请你把其循环左移K位后的序列输出。例如，字符序列S=”abcXYZdef”,要求输出循环左移3位后的结果，即“XYZdefabc”。是不是很简单？OK，搞定它！</p>
+<p>　　<strong>解题思路</strong>：三次反转算法（妙哉！）</p>
+<p>　　<strong>注意问题</strong>：</p>
+<p>　　1.在对c[n，str.length()-1]进行反转时，极易出错；</p>
+<p>　　2.数组反转方法：for（i=begin；i&lt;=(end-begin)/2；i++）（i可以取到end）；</p>
+<p>　　3.注意数组的length是属性后面没有括号，字符串的length（）是方法，后面有括号；</p>
+<p>　　4.注意对字符串为空和长度为零的判断和对n为0和str.length()两种极端情况的判断。因为这四个判断，多提交了三次；</p>
+<p>　　<strong>补充知识点</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">LeftRotateString</span><span class="params">(String str,<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(str==<span class="keyword">null</span> || str.length()==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span> || n==str.length())</span><br><span class="line">            <span class="keyword">return</span> str;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">char</span> []c=str.toCharArray();</span><br><span class="line">        <span class="keyword">char</span> t;</span><br><span class="line">        <span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;=(n-<span class="number">1</span>)/<span class="number">2</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            t=c[i];</span><br><span class="line">            c[i]=c[n-<span class="number">1</span>-i];</span><br><span class="line">            c[n-<span class="number">1</span>-i]=t;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (i=n;i&lt;=(str.length()-<span class="number">1</span>-n)/<span class="number">2</span>+n;i++)<span class="comment">//极易出错</span></span><br><span class="line">        &#123;</span><br><span class="line">            t=c[i];</span><br><span class="line">            c[i]=c[str.length()-<span class="number">1</span>-i+n];</span><br><span class="line">            c[str.length()-<span class="number">1</span>-i+n]=t;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;=(str.length()-<span class="number">1</span>)/<span class="number">2</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            t=c[i];</span><br><span class="line">            c[i]=c[str.length()-<span class="number">1</span>-i];</span><br><span class="line">            c[str.length()-<span class="number">1</span>-i]=t;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> String.valueOf(c);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p id="43">44、反转单词序列</p>
+
+<p>　　<strong>题目描述：</strong></p>
+<p>  牛客最近来了一个新员工Fish，每天早晨总是会拿着一本英文杂志，写些句子在本子上。同事Cat对Fish写的内容颇感兴趣，有一天他向Fish借来翻看，但却读不懂它的意思。例如，“student. a am I”。后来才意识到，这家伙原来把句子单词的顺序翻转了，正确的句子应该是“I am a student.”。Cat对一一的翻转这些单词顺序可不在行，你能帮助他么？</p>
+<p>　　<strong>解题思路</strong>：</p>
+<p>  第一步：反转整个序列中所有的字符，这时会发现不但反转了单词的顺序，单词中的字母顺序也被反转，因此需要第二步的调整。</p>
+<p>  第二步：以空格为分隔，依次反转每个单词，即让每个单词会到原来的正常顺序。</p>
+<p>　　<strong>注意问题</strong>：</p>
+<p>　　1.反转函数：数列思想；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i=begin;i&lt;=(end-begin)/<span class="number">2</span>+begin;i++)<span class="comment">//写成：i&lt;=(end+begin)/2完全可行。因为i的最后位置为end和begin的等差中项</span></span><br><span class="line">&#123;</span><br><span class="line">    t=array[i];</span><br><span class="line">    array[i]=array[end+begin-i];<span class="comment">//根据等差数列：end+begin==i+x，此处x代表和array[i]进行交换的数组元素</span></span><br><span class="line">    array[end+begin-i]=t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　2.String str=null与String str=“”的区别：String str1= null; str1引用为空，String str2= “”; str2引用一个空字符串。即：””分配了内存；null没有分配内存，因此str1还不是一个实例化的对象，而str2已经实例化；</p>
+<p>　　3.注意考虑特殊情况：输入的字符串只包含多了空格：<code>if (strArr[i]==&#39; &#39; &amp;&amp; strArr[i+1]!=&#39; &#39;)</code>；</p>
+<p>　　<strong>补充知识点</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">ReverseSentence</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (str==<span class="keyword">null</span>)<span class="comment">//1注意</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span>(str.length()==<span class="number">0</span>)<span class="comment">//2注意：注意区分1和2的区别</span></span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">int</span> j;</span><br><span class="line">        <span class="keyword">char</span> []strArr=str.toCharArray();</span><br><span class="line">        <span class="keyword">char</span> t;</span><br><span class="line">        <span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;=(str.length()-<span class="number">1</span>)/<span class="number">2</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            t=strArr[i];</span><br><span class="line">            strArr[i]=strArr[str.length()-<span class="number">1</span>-i];</span><br><span class="line">            strArr[str.length()-<span class="number">1</span>-i]=t;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> begin=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;str.length()-<span class="number">1</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (strArr[i]==<span class="string">' '</span> &amp;&amp; strArr[i+<span class="number">1</span>]!=<span class="string">' '</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">for</span> (j=begin;j&lt;=(i-<span class="number">1</span>-begin)/<span class="number">2</span>+begin;j++)</span><br><span class="line">                &#123;</span><br><span class="line">                    t=strArr[j];</span><br><span class="line">                    strArr[j]=strArr[i-<span class="number">1</span>-j+begin];</span><br><span class="line">                    strArr[i-<span class="number">1</span>-j+begin]=t;</span><br><span class="line">                &#125;</span><br><span class="line">                begin=i+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (j=begin;j&lt;=(str.length()-<span class="number">1</span>-begin)/<span class="number">2</span>+begin;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            t=strArr[j];</span><br><span class="line">            strArr[j]=strArr[str.length()-<span class="number">1</span>+begin-j];<span class="comment">//等差数列的思想</span></span><br><span class="line">            strArr[str.length()-<span class="number">1</span>+begin-j]=t;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> String.valueOf(strArr);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p id="49">49、把字符串转换成整数</p>
+
+<p>　　<strong>题目描述：</strong></p>
+<p>  将一个字符串转换成一个整数(实现Integer.valueOf(string)的功能，但是string不符合数字要求时返回0)，要求不能使用字符串转换整数的库函数。 数值为0或者字符串不是一个合法的数值则返回0。</p>
+<p>　　<strong>解题思路</strong>：第一位情况较多，所以第一位要分多种情况讨论（+、-、数字、其他），第2—str.length()-1位只有两种情况（是数字，不是数字），所以先讨论第2—str.length()-1位，再讨论第一位。当第一位为+、-、数字，后面全为数字时，他们的核心问题是一样的：把一串数字字符串转化为整数。而解决该问题的关键在于找到第一位非零数字。</p>
+<p>　　<strong>注意问题</strong>：</p>
+<p>　　1.<code>if (str==null || str.length()==0)</code>，该问题已强调多次；</p>
+<p>　　2.<code>public String substring(int startpoint)</code>获得当前字符串的子串，该字串是从当前字符串的startpoint处截取到最后所得到的字符串；</p>
+<p>　　3.找第一位非零数字时，用了设标志位的方法，比较巧妙，属于自创；</p>
+<p>　　4.<code>(int)str.charAt(i)-48;</code>数字字符转数字，因为 ‘0’ 对应的ASCII值是48；’</p>
+<p>　　<strong>补充知识点</strong>：String类的常用方法</p>
+<p>　　<strong>备注</strong>：通过这道题我就感觉，没什么问题是我想不明白的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">StrToInt</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">int</span> sum;</span><br><span class="line">        <span class="keyword">if</span> (str==<span class="keyword">null</span> || str.length()==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (i=<span class="number">1</span>;i&lt;str.length();i++)</span><br><span class="line">            <span class="keyword">if</span> (str.charAt(i)&lt;<span class="string">'0'</span> || str.charAt(i)&gt;<span class="string">'9'</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (str.charAt(<span class="number">0</span>)==<span class="string">'+'</span>)</span><br><span class="line">            <span class="keyword">return</span> fun(str.substring(<span class="number">1</span>));</span><br><span class="line">        <span class="keyword">if</span> (str.charAt(<span class="number">0</span>)==<span class="string">'-'</span>)</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>*fun(str.substring(<span class="number">1</span>));</span><br><span class="line">        <span class="keyword">if</span> (str.charAt(<span class="number">0</span>)&gt;=<span class="string">'0'</span> &amp;&amp; str.charAt(<span class="number">0</span>)&lt;=<span class="string">'9'</span> )</span><br><span class="line">            <span class="keyword">return</span> fun(str);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">fun</span><span class="params">(String str)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> len=str.length();</span><br><span class="line">        <span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> f=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (i=<span class="number">0</span>;i&lt;len;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (str.charAt(i)!=<span class="string">'0'</span>)<span class="comment">//找第一个非0数字，比较巧妙。</span></span><br><span class="line">                f=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (f==<span class="number">1</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                sum*=<span class="number">10</span>;</span><br><span class="line">                sum+=(<span class="keyword">int</span>)str.charAt(i)-<span class="number">48</span>;<span class="comment">//数字字符转数字</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p id="52">52、正则表达式匹配</p>
+
+<p>　　<strong>题目描述：</strong></p>
+<p>  请实现一个函数用来匹配包括’<code>.</code>‘和’<code>*</code>‘的正则表达式。模式中的字符’<code>.</code>‘表示任意一个字符，而’<code>*</code>‘表示它前面的字符可以出现任意次（包含0次）。 在本题中，匹配是指字符串的所有字符匹配整个模式。例如，字符串”aaa”与模式”<code>a.a</code>“和”<code>ab*ac*a</code>“匹配，但是与”<code>aa.a</code>“和”<code>ab*a</code>“均不匹配。</p>
+<p>　　<strong>解题思路</strong>：</p>
+<p>　　<strong>注意问题</strong>：</p>
+<p>　　<strong>补充知识点</strong>：</p>
+<p id="53">53、表示数值的字符串</p>
+
+<p>　　<strong>题目描述：</strong></p>
+<p>  请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。例如，字符串”+100”, “5e2”, “-123”,” 3.1416” 和 “-1E-16” 都表示数值。 但是 “12e”, “1a3.14”, “1.2.3”, “+-5” 和 “12e+4.3” 都不是。</p>
+<p>　　<strong>解题思路</strong>：</p>
+<p>　　<strong>注意问题</strong>：</p>
+<p>　　<strong>补充知识点</strong>：</p>
+<p id="54">54、字符流中第一个不重复的字符</p>
+
+<p>　　<strong>题目描述：</strong></p>
+<p>  请实现一个函数用来找出字符流中第一个只出现一次的字符。例如，当从字符流中只读出前两个字符”go”时，第一个只出现一次的字符是”g”。当从该字符流中读出前六个字符“google”时，第一个只出现一次的字符是”l”。</p>
 <p>　　<strong>解题思路</strong>：</p>
 <p>　　<strong>注意问题</strong>：</p>
 <p>　　<strong>补充知识点</strong>：</p>
@@ -493,13 +559,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">36k</span>
+    <span title="站点总字数">40k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">33 分钟</span>
+    <span title="站点阅读时长">36 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
