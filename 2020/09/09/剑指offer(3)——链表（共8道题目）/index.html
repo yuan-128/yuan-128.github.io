@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="0 输入输出 raw_input：python3将raw_input和input进行整合成了input….去除了raw_input()函数，其接受任意输入, 将所有输入默认为字符串处理,并返回字符串类型；">
+  <meta name="description" content="参考资料： 剑指offer题目汇总">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python语言程序设计基础">
-<meta property="og:url" content="http://yoursite.com/2020/08/20/python%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:title" content="剑指offer(3)——链表（共8道题目）">
+<meta property="og:url" content="http://yoursite.com/2020/09/09/%E5%89%91%E6%8C%87offer(3)%E2%80%94%E2%80%94%E9%93%BE%E8%A1%A8%EF%BC%88%E5%85%B18%E9%81%93%E9%A2%98%E7%9B%AE%EF%BC%89/index.html">
 <meta property="og:site_name" content="不忘初心">
-<meta property="og:description" content="0 输入输出 raw_input：python3将raw_input和input进行整合成了input….去除了raw_input()函数，其接受任意输入, 将所有输入默认为字符串处理,并返回字符串类型；">
+<meta property="og:description" content="参考资料： 剑指offer题目汇总">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-08-20T12:38:35.000Z">
-<meta property="article:modified_time" content="2020-08-20T12:44:17.668Z">
+<meta property="article:published_time" content="2020-09-09T02:28:51.000Z">
+<meta property="article:modified_time" content="2020-09-10T04:37:35.078Z">
 <meta property="article:author" content="你的名字">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="剑指offer">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/08/20/python%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%9F%BA%E7%A1%80/">
+<link rel="canonical" href="http://yoursite.com/2020/09/09/%E5%89%91%E6%8C%87offer(3)%E2%80%94%E2%80%94%E9%93%BE%E8%A1%A8%EF%BC%88%E5%85%B18%E9%81%93%E9%A2%98%E7%9B%AE%EF%BC%89/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>python语言程序设计基础 | 不忘初心</title>
+  <title>剑指offer(3)——链表（共8道题目） | 不忘初心</title>
   
 
 
@@ -197,7 +197,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/20/python%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%9F%BA%E7%A1%80/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/09/%E5%89%91%E6%8C%87offer(3)%E2%80%94%E2%80%94%E9%93%BE%E8%A1%A8%EF%BC%88%E5%85%B18%E9%81%93%E9%A2%98%E7%9B%AE%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -210,7 +210,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          python语言程序设计基础
+          剑指offer(3)——链表（共8道题目）
         </h1>
 
         <div class="post-meta">
@@ -219,17 +219,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-08-20 20:38:35 / 修改时间：20:44:17" itemprop="dateCreated datePublished" datetime="2020-08-20T20:38:35+08:00">2020-08-20</time>
+              <time title="创建时间：2020-09-09 10:28:51" itemprop="dateCreated datePublished" datetime="2020-09-09T10:28:51+08:00">2020-09-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-10 12:37:35" itemprop="dateModified" datetime="2020-09-10T12:37:35+08:00">2020-09-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                  <a href="/categories/%E5%89%91%E6%8C%87offer/" itemprop="url" rel="index"><span itemprop="name">剑指offer</span></a>
                 </span>
             </span>
 
@@ -239,7 +245,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>99</span>
+              <span>724</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -258,10 +264,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>0</p>
-<h1 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h1><ol>
-<li>raw_input：python3将raw_input和input进行整合成了input….去除了raw_input()函数，其接受任意输入, 将所有输入默认为字符串处理,并返回字符串类型；</li>
-</ol>
+        <p>参考资料：</p>
+<p><a href="https://www.cnblogs.com/gzshan/p/10910831.html" target="_blank" rel="noopener">剑指offer题目汇总</a></p>
+<a id="more"></a>
+
+<h1 id="链表（共8道题目）"><a href="#链表（共8道题目）" class="headerlink" title="链表（共8道题目）"></a>链表（共8道题目）</h1><p>模板：</p>
+<p>　　<strong>题目描述：</strong></p>
+<p>　　<strong>解题思路</strong>：</p>
+<p>　　<strong>注意问题</strong>：</p>
+<p>　　<strong>补充知识点</strong>：</p>
+<hr>
+<p><a href="#3">3、从尾到头打印链表</a>（09.09）</p>
+<hr>
+<p id="3">3、从尾到头打印链表</p>
+
+<p>　　<strong>题目描述：</strong></p>
+<p>  输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。</p>
+<p>　　<strong>解题思路</strong>：栈、递归</p>
+<p>　　<strong>注意问题</strong>：</p>
+<p>　　1.声明的list要在方法之外，否则递归过程中用到的不是一个list；</p>
+<p>　　2.注意判空和递归结束的条件；</p>
+<p>　　<strong>补充知识点</strong>：java链表、c语言结构体节点和java节点的对比</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*    public class ListNode &#123;</span></span><br><span class="line"><span class="comment">*        int val;</span></span><br><span class="line"><span class="comment">*        ListNode next = null;</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">*        ListNode(int val) &#123;</span></span><br><span class="line"><span class="comment">*            this.val = val;</span></span><br><span class="line"><span class="comment">*        &#125;</span></span><br><span class="line"><span class="comment">*    &#125;</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    ArrayList&lt;Integer&gt; list=<span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;Integer&gt; <span class="title">printListFromTailToHead</span><span class="params">(ListNode listNode)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(listNode==<span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> list;</span><br><span class="line">        <span class="keyword">if</span> (listNode!=<span class="keyword">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            printListFromTailToHead(listNode.next);</span><br><span class="line">            list.add(listNode.val);</span><br><span class="line">            listNode=listNode.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -271,7 +296,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/%E5%89%91%E6%8C%87offer/" rel="tag"># 剑指offer</a>
           </div>
 
         
@@ -280,12 +305,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/08/19/%E5%89%91%E6%8C%87offer(%E4%B8%80)%E2%80%94%E2%80%94%E6%95%B0%E7%BB%84%EF%BC%88%E5%85%B112%E9%81%93%E9%A2%98%E7%9B%AE%EF%BC%89/" rel="prev" title="剑指offer(一)——数组（共12道题目）">
-      <i class="fa fa-chevron-left"></i> 剑指offer(一)——数组（共12道题目）
+    <a href="/2020/09/07/2020-08%E6%80%BB%E7%BB%93/" rel="prev" title="2020-08总结">
+      <i class="fa fa-chevron-left"></i> 2020-08总结
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/08/21/c%E8%AF%AD%E8%A8%80%E5%BC%80%E5%8F%91/" rel="next" title="c语言开发">
-      c语言开发 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/09/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84(2)%E2%80%94%E2%80%94%E6%A0%88%E5%92%8C%E9%80%92%E5%BD%92/" rel="next" title="数据结构(2)——栈和递归">
+      数据结构(2)——栈和递归 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -345,7 +370,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#输入输出"><span class="nav-number">1.</span> <span class="nav-text">输入输出</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#链表（共8道题目）"><span class="nav-number">1.</span> <span class="nav-text">链表（共8道题目）</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -361,20 +386,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -422,13 +447,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">44k</span>
+    <span title="站点总字数">45k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">40 分钟</span>
+    <span title="站点阅读时长">41 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
