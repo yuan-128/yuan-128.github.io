@@ -27,11 +27,13 @@
 <meta property="og:site_name" content="不忘初心">
 <meta property="og:description" content="参考资料： 剑指offer题目汇总">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/09/16/%E5%89%91%E6%8C%87offer(4)%E2%80%94%E2%80%94%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%88%E5%85%B115%E9%81%93%E9%A2%98%E7%9B%AE%EF%BC%89/18.png">
 <meta property="article:published_time" content="2020-09-16T14:18:19.000Z">
-<meta property="article:modified_time" content="2020-09-16T14:54:00.339Z">
+<meta property="article:modified_time" content="2020-09-27T15:53:06.686Z">
 <meta property="article:author" content="你的名字">
 <meta property="article:tag" content="剑指offer">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/09/16/%E5%89%91%E6%8C%87offer(4)%E2%80%94%E2%80%94%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%88%E5%85%B115%E9%81%93%E9%A2%98%E7%9B%AE%EF%BC%89/18.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/09/16/%E5%89%91%E6%8C%87offer(4)%E2%80%94%E2%80%94%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%88%E5%85%B115%E9%81%93%E9%A2%98%E7%9B%AE%EF%BC%89/">
 
@@ -219,10 +221,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-09-16 22:18:19 / 修改时间：22:54:00" itemprop="dateCreated datePublished" datetime="2020-09-16T22:18:19+08:00">2020-09-16</time>
+              <time title="创建时间：2020-09-16 22:18:19" itemprop="dateCreated datePublished" datetime="2020-09-16T22:18:19+08:00">2020-09-16</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-27 23:53:06" itemprop="dateModified" datetime="2020-09-27T23:53:06+08:00">2020-09-27</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -239,14 +247,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>216</span>
+              <span>5.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -269,6 +277,16 @@
 <p>　　<strong>补充知识点</strong>：</p>
 <hr>
 <p><a href="#4">4、重建二叉树</a>（09.17）</p>
+<p><a href="#17">17、树的子结构</a>（09.18）</p>
+<p><a href="#18">18、二叉树的镜像</a>（09.19）</p>
+<p><a href="#22">22、从上往下打印二叉树</a>（09.20）</p>
+<p><a href="#23">23、二叉搜索树的后序遍历序列</a>（09.21）</p>
+<p><a href="#24">24、二叉树中和为某一值的路径</a>（09.22）</p>
+<p><a href="#26">26、二叉搜索树与双向链表</a>（09.23）</p>
+<p><a href="#38">38、二叉树的深度</a>（09.24）</p>
+<p><a href="#39">39、平衡二叉树</a>（09.25）</p>
+<p><a href="#57">57、二叉树的下一个结点</a>（09.26）</p>
+<p><a href="#58">58、对称的二叉树</a>（09.27）</p>
 <hr>
 <p id="4">4、重建二叉树</p>
 
@@ -276,7 +294,74 @@
 <p>  输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回根结点。</p>
 <p>　　<strong>解题思路</strong>：</p>
 <p>　　<strong>注意问题</strong>：</p>
+<p>　　1.递归最后要有一个return root；</p>
+<p>　　<strong>补充知识点</strong>：关于树的层次和递归深度的思考、递归与分治</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> TreeNode <span class="title">reConstructBinaryTree</span><span class="params">(<span class="keyword">int</span> [] pre,<span class="keyword">int</span> [] in)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/*根据前序遍历和中序遍历确定一棵二叉树*/</span></span><br><span class="line">        <span class="comment">//递归实现</span></span><br><span class="line">        <span class="keyword">if</span>(pre==<span class="keyword">null</span>||in==<span class="keyword">null</span>||pre.length==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">return</span> reConstructBinaryTree(pre,in,<span class="number">0</span>,pre.length-<span class="number">1</span>,<span class="number">0</span>,in.length-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">reConstructBinaryTree</span><span class="params">(<span class="keyword">int</span> [] pre,<span class="keyword">int</span> [] in,<span class="keyword">int</span> pre_begin,</span></span></span><br><span class="line"><span class="function"><span class="params">                                          <span class="keyword">int</span> pre_end,<span class="keyword">int</span> in_begin,<span class="keyword">int</span> in_end)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">////前序序列：从pre_begin到pre_end,  中序序列：从in_begin到in_end</span></span><br><span class="line">        <span class="comment">//递归结束条件</span></span><br><span class="line">        <span class="keyword">if</span>(pre_begin&gt;pre_end || in_begin&gt;in_end)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> rootValue=pre[pre_begin];</span><br><span class="line">        TreeNode root=<span class="keyword">new</span> TreeNode(rootValue);  <span class="comment">//第一个节点就是根节点</span></span><br><span class="line">        <span class="keyword">if</span>(pre_begin==pre_end || in_begin==in_end)</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        <span class="comment">//在中序序列中，找到root，前面的就是左子树，右边的就是右子树</span></span><br><span class="line">        <span class="keyword">int</span> rootIn=in_begin; <span class="comment">//root在中序序列中的位置</span></span><br><span class="line">        <span class="keyword">while</span>(rootIn&lt;=in_end &amp;&amp; in[rootIn]!=rootValue)</span><br><span class="line">            rootIn++;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> left_count=rootIn-in_begin; <span class="comment">//左子树节点个数							      	</span></span><br><span class="line">   		root.left=reConstructBinaryTree(pre,in,pre_begin+<span class="number">1</span>,pre_begin+left_count,</span><br><span class="line">                                   in_begin,rootIn-<span class="number">1</span>);</span><br><span class="line">      	root.right=reConstructBinaryTree(pre,in,pre_begin+left_count+<span class="number">1</span>,</span><br><span class="line">                                       pre_end,rootIn+<span class="number">1</span>,in_end);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p id="17">17、树的子结构</p>
+
+<p>　　<strong>题目描述：</strong></p>
+<p>  输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）</p>
+<p>　　<strong>解题思路</strong>：递归</p>
+<p>　　<strong>注意问题</strong>：</p>
 <p>　　<strong>补充知识点</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">HasSubtree</span><span class="params">(TreeNode root1,TreeNode root2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root1==<span class="keyword">null</span> || root2==<span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">boolean</span> res=<span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">if</span>(root1.val==root2.val) <span class="comment">//有相同的根节点，判断第二步</span></span><br><span class="line">            res=doesTree1HasTree2(root1,root2);</span><br><span class="line">        <span class="keyword">if</span>(!res) <span class="comment">//不满足，继续在子树中查找</span></span><br><span class="line">            res=HasSubtree(root1.left,root2); <span class="comment">//左子树</span></span><br><span class="line">        <span class="keyword">if</span>(!res) <span class="comment">//左子树也没有找到，右子树查找</span></span><br><span class="line">            res=HasSubtree(root1.right,root2); <span class="comment">//右子树</span></span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//以R为根的子树是否包含和树B相同的结构</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">doesTree1HasTree2</span><span class="params">(TreeNode root1,TreeNode root2)</span></span>&#123; </span><br><span class="line">        <span class="keyword">if</span>(root2==<span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">if</span>(root1==<span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">if</span>(root1.val!=root2.val)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">return</span> doesTree1HasTree2(root1.left,root2.left) &amp;&amp; doesTree1HasTree2(root1.right,root2.right);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p id="18">18、二叉树的镜像</p>
+
+<p>　　<strong>题目描述：</strong></p>
+<p>  操作给定的二叉树，将其变换为原二叉树的镜像。</p>
+<p><img src="/2020/09/16/%E5%89%91%E6%8C%87offer(4)%E2%80%94%E2%80%94%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%88%E5%85%B115%E9%81%93%E9%A2%98%E7%9B%AE%EF%BC%89/18.png" alt></p>
+<p>　　<strong>解题思路</strong>：递归</p>
+<p>　　<strong>注意问题</strong>：</p>
+<p>　　1.中序遍历不行，先序遍历和后序遍历可以；</p>
+<p>　　2.提倡使用先序遍历；</p>
+<p>　　<strong>补充知识点</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Mirror</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/*思路：左右结点互换*/</span></span><br><span class="line">        <span class="keyword">if</span>(root!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(root.left!=<span class="keyword">null</span> || root.right!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                TreeNode temp=root.left;</span><br><span class="line">                root.left=root.right;</span><br><span class="line">                root.right=temp;</span><br><span class="line">                Mirror(root.left);</span><br><span class="line">                Mirror(root.right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p id="38">38、二叉树的深度</p>
+
+<p>　　<strong>题目描述：</strong></p>
+<p>  输入一棵二叉树，求该树的深度。从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。</p>
+<p>　　<strong>解题思路</strong>：递归</p>
+<p>　　<strong>注意问题</strong>：递归结束条件判断；</p>
+<p>　　<strong>补充知识点</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val = <span class="number">0</span>;</span><br><span class="line">    TreeNode left = <span class="keyword">null</span>;</span><br><span class="line">    TreeNode right = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TreeNode</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">TreeDepth</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> leftDepth=TreeDepth(root.left);</span><br><span class="line">        <span class="keyword">int</span> rightDepth=TreeDepth(root.right);</span><br><span class="line">        <span class="keyword">int</span> depth=leftDepth&gt;rightDepth?leftDepth:rightDepth;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>+depth;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p id="39">39、平衡二叉树</p>
+
+<p>　　<strong>题目描述：</strong></p>
+<p>  输入一棵二叉树，判断该二叉树是否是平衡二叉树。这里的定义是：如果某二叉树中任意结点的左、右子树的深度相差不超过1，那么它就是一棵平衡二叉树。</p>
+<p>　　<strong>解题思路</strong>：后序遍历：先判断左子树是否平衡，再判断右子树是否平衡，当左右子树均平衡时，再判断根是否平衡。</p>
+<p>　　<strong>注意问题</strong>：</p>
+<p>　　1.在求树的深度的算法的基础上，增加平衡的判断：求出左子树深度之后，要及时判断是否平衡；求出右子树之后，也要及时判断是否平衡；（如果不判断，只判断整棵树是否平衡，当二叉树为左子树单支链时，其左子树深度为-1，右子树深度为0，则|-1-0|=1不大于1，即该二叉树是平衡二叉树，与事实相反）在返回整棵树的深度之前，也要进行平衡的判断；</p>
+<p>　　<strong>补充知识点</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">IsBalanced_Solution</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root==<span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">int</span> res=getDepth(root);</span><br><span class="line">        <span class="keyword">if</span> (res==-<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getDepth</span><span class="params">(TreeNode root)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root==<span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span>  <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> left=getDepth(root.left);</span><br><span class="line">        <span class="keyword">if</span> (left==-<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> right=getDepth(root.right);</span><br><span class="line">        <span class="keyword">if</span> (right==-<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (Math.abs(left-right)&gt;<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> left&gt;right?left+<span class="number">1</span>:right+<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p id="57">57、二叉树的下一个结点</p>
+
+<p>　　<strong>题目描述：</strong></p>
+<p>  给定一个二叉树和其中的一个结点，请找出中序遍历顺序的下一个结点并且返回。注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针。</p>
+<p>　　<strong>解题思路</strong>：</p>
+<p>  找一个结点在中序遍历序列中的下一个结点共有<strong>三种不同的情况</strong>：</p>
+<ul>
+<li>如果一个结点有右子树，那么它的下一个结点就是它的右子树中最左边的那个结点，也就是说，从它的右子结点出发一直访问左指针，最后就可以找到这个最左结点。</li>
+<li>如果一个结点没有右子树，那么需要再进一步考虑，不难知道：如果这个结点是其父结点的左结点，那么根据中序遍历规则，它的下一个结点就是它的父结点。</li>
+<li>第三种情况略复杂一些，当一个结点既没有右子树，也不是其父结点的左结点时，我们可以沿着指向父结点的指针一直向上遍历，直到找到一个是它自身的父结点的左孩子的结点，如果这样的结点存在，那么这个结点的父结点就是我们要找的下一个结点。</li>
+</ul>
+<p>　　<strong>注意问题</strong>：</p>
+<p>　　<strong>补充知识点</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TreeLinkNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    TreeLinkNode left = <span class="keyword">null</span>;</span><br><span class="line">    TreeLinkNode right = <span class="keyword">null</span>;</span><br><span class="line">    TreeLinkNode next = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    TreeLinkNode(<span class="keyword">int</span> val) &#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeLinkNode <span class="title">GetNext</span><span class="params">(TreeLinkNode pNode)</span></span>&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        思路：三种情况：（1）若给定结点有右子树，则下一个结点是它右子树中最左边的结点</span></span><br><span class="line"><span class="comment">            （2）若该结点没有右子树，并且是父节点的左结点，则下一个结点就是他的父节点</span></span><br><span class="line"><span class="comment">            （3）若该结点没有右子树，并且是父节点的右结点，则应该沿着父节点向上，直到找到的结点是一个左结点。则下一个结点是该左结点的父节点</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">if</span>(pNode==<span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        TreeLinkNode res=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span>(pNode.right!=<span class="keyword">null</span>)&#123; <span class="comment">//有右子树</span></span><br><span class="line">            res=pNode.right;</span><br><span class="line">            <span class="keyword">while</span>(res.left!=<span class="keyword">null</span>)</span><br><span class="line">                res=res.left;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;  <span class="comment">//没有右子树</span></span><br><span class="line">            TreeLinkNode parent=pNode.next; <span class="comment">//父节点</span></span><br><span class="line">            <span class="keyword">if</span>(parent!=<span class="keyword">null</span> &amp;&amp; pNode==parent.left) <span class="comment">//是父节点的左结点</span></span><br><span class="line">                res=parent;</span><br><span class="line">            <span class="keyword">else</span>&#123; <span class="comment">//是父节点的右结点</span></span><br><span class="line">                <span class="keyword">while</span>(parent!=<span class="keyword">null</span> &amp;&amp; parent.next!=<span class="keyword">null</span> &amp;&amp; parent!=parent.next.left)</span><br><span class="line">                    parent=parent.next;</span><br><span class="line">                res=parent==<span class="keyword">null</span>? <span class="keyword">null</span> : parent.next;</span><br><span class="line">            &#125; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p id="58">58、对称的二叉树</p>
+
+<p>　　<strong>题目描述：</strong></p>
+<p>  请实现一个函数，用来判断一颗二叉树是不是对称的。注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。</p>
+<p>　　<strong>解题思路</strong>：</p>
+<p>　　<strong>注意问题</strong>：</p>
+<p>　　<strong>补充知识点</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java</span></span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -376,7 +461,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -437,13 +522,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">54k</span>
+    <span title="站点总字数">59k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">49 分钟</span>
+    <span title="站点阅读时长">53 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
