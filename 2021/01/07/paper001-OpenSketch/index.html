@@ -28,7 +28,7 @@
 <meta property="og:description" content="Software Defined Traffic Measurement with OpenSketch">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-01-07T09:04:11.000Z">
-<meta property="article:modified_time" content="2021-01-08T09:33:25.067Z">
+<meta property="article:modified_time" content="2021-01-12T12:29:28.188Z">
 <meta property="article:author" content="你的名字">
 <meta property="article:tag" content="sketch">
 <meta name="twitter:card" content="summary">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-08 17:33:25" itemprop="dateModified" datetime="2021-01-08T17:33:25+08:00">2021-01-08</time>
+                <time title="修改时间：2021-01-12 20:29:28" itemprop="dateModified" datetime="2021-01-12T20:29:28+08:00">2021-01-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -264,14 +264,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -290,11 +290,16 @@
 <p>　　本文提出了一个软件定义的流量测量架构：OpenSketch，它提出将测量控制层和数据层解耦（把网络测量架构的数据平面从控制平面中分离出来）。在数据平面中，OpenSketch提供了一个简单的三阶段流水线（hashing, fifiltering, and counting），这个想法可以在商用交换机上实现，并且能够支持多种测量任务。在控制平面：OpenSketch提供了一个测量库（measurement library），可以自动配置 流水线（应该是指数据平面的三阶段流水线）为不同的测量任务分配资源。</p>
 <p>　　用五种测量任务测试，它很好。Our evaluations of realworld packet traces, our prototype on NetFPGA, and the implementation of fifive measurement tasks on top of OpenSketch, demonstrate that OpenSketch is general, effificient and easily programmable.</p>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>　　SDN的最新进展已经显著改善了对网络的管理。网络管理涉及到两个重要的阶段：（1）实时测量网络（如：识别异常流量或大流量聚集）(e.g., identifying traffific anomalies or large traffific aggregates)；（2）然后相应地调整网络控制（如：路径、可达控制、速率限制） (e.g.,routing, access control, and rate limiting)。在为网络控制设计正确的APIs领域已经有很多贡献（e.g., OpenFlow [29], ForCES [1], rule based forwarding [33], etc.），在为网络测量设计正确的APIs方面的想法却很少。因为控制和测量是网络管理的两个同等重要的部分，所以设计并建立一个新的软件定义的测量架构是十分重要的。关键的问题在于如何平衡网络测量的一般性和效率。即：既能够完成多种测量任务，又能够保证测量的效率（以较低的开销完成高速链路的测量）。</p>
-<p>　　基于流量的测量框架如：NetFlow[2]、sFlow[42]支持不同的测量任务（provide generic support），但消耗了太多资源（如：CPU、内存、带宽）[28,18,19]。例如：</p>
+<p>　　基于流量的测量框架如：NetFlow[2]、sFlow[42]支持不同的测量任务（provide generic support），但消耗了太多资源（如：CPU、内存、带宽）[28,18,19]。例如：为了识别字节数量超过阈值的big flows（即： heavy hitter的检测，对于数据中心的流量工程来说，heavy hitter的检测是很重要的），NetFlow在数据平面进行流级（补充：网络流量收集和监视分为两类：数据包级别流量级别）的计数，以便对数据包进行采样。采样率越高，需要的计数器越多；采样率越低，则容易错过需要关注的流量。虽然针对特定的测量任务（如[48，19]）有许多针对NetFlow的改进，但有的测量任务可能需要关注small flows（对比与前面提到的big flows）（如：异常检测），因此需要另一种改变NetFlow的方法（不够动态化）。<strong>相反，我们应该根据测量要求，提供由操作人员编写的软件定义的更为定制和动态的测量数据采集，并对测量精度提供保证。</strong></p>
+<p>　　作为替代，许多基于sketch的流算法在理论研究社区已经被提出[7, 12, 46, 8, 20, 47]，它们针对单个测量任务非常有效。然而，由于它们缺乏一般性：每个算法只回答一个问题或产生一个统计数据（例如，目的地的唯一数量），对于供应商来说，构建新的硬件来支持每个功能的成本太高，因此，这些算法并没有在实际应用中部署。例如；节省空间的heavy hitter检测算法[8]维持一个包含items和counts的hash表，执行固定操作，如：保留指向具有最小计数的项的指针，如果该项没有项，则用新项替换最小计数项。这个算法不仅需要一个定制的交换机芯片（或网络处理器）来实现，并且在将来很难有更好的解决方案（还是需要定制的交换机芯片）。<strong>相反，我们应该设计一个简单、有效的数据平面，该数据平面使用商用交换机组件易于实现，同时把那些定制的数据分析留给控制器中的软件部分。</strong></p>
+<p>　　</p>
 <p>数据层运行设为可动态配置的3阶段流水线, 首先对数据流进行<strong>Hash</strong>运算以减少需要测量的数据量; 其次在<strong>分类</strong>阶段, 通过定制并匹配通配符规则实现对流量的分类; 最后在<strong>流量计数</strong>阶段, 根据不同精度需求, 每个流对应一个或多个计数器以实现流信息统计、整合和回溯.</p>
 <p><strong>补充：</strong></p>
 <ol>
-<li>常见的测量任务：</li>
+<li><p>常见的测量任务：</p>
+</li>
+<li><p>Netflow/sFlow</p>
+</li>
 </ol>
 
     </div>
@@ -314,13 +319,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/12/22/%E9%9A%8F%E7%AC%94%E2%80%94%E2%80%942020%E5%B0%BE%E5%A3%B0%EF%BC%882021-01-01%EF%BC%89/" rel="prev" title="随笔——2020尾声（2021.01.01）">
-      <i class="fa fa-chevron-left"></i> 随笔——2020尾声（2021.01.01）
+    <a href="/2021/01/07/paper002-Sonata/" rel="prev" title="paper002-Sonata">
+      <i class="fa fa-chevron-left"></i> paper002-Sonata
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/01/08/sonata%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4/" rel="next" title="sonata搭建步骤">
-      sonata搭建步骤 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -403,13 +405,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -457,13 +459,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">87k</span>
+    <span title="站点总字数">88k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:19</span>
+    <span title="站点阅读时长">1:20</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
