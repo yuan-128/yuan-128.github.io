@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="OmniMon: Re-architecting Network Telemetry with Resource Efficiency and Full Accuracy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="paper003-OmniMon">
+<meta property="og:url" content="http://yoursite.com/2021/01/14/paper003-OmniMon/index.html">
+<meta property="og:site_name" content="不忘初心">
+<meta property="og:description" content="OmniMon: Re-architecting Network Telemetry with Resource Efficiency and Full Accuracy">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-14T13:08:15.000Z">
+<meta property="article:modified_time" content="2021-01-15T07:09:25.694Z">
+<meta property="article:author" content="你的名字">
+<meta property="article:tag" content="sketch">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2021/01/14/paper003-OmniMon/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>paper003-OmniMon | 不忘初心</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">不忘初心</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">人啊,总是容易忘记何为根本.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+        <li class="menu-item menu-item-film">
+
+    <a href="/film/" rel="section"><i class="fa fa-film fa-fw"></i>电影</a>
+
+  </li>
+        <li class="menu-item menu-item-book">
+
+    <a href="/book/" rel="section"><i class="fa fa-book fa-fw"></i>书单</a>
+
+  </li>
+        <li class="menu-item menu-item-learn">
+
+    <a href="/learn/" rel="section"><i class="fa fa-university fa-fw"></i>学习规划</a>
+
+  </li>
+        <li class="menu-item menu-item-english">
+
+    <a href="/english/" rel="section"><i class="fa fa-calendar fa-fw"></i>English</a>
+
+  </li>
+        <li class="menu-item menu-item-paper">
+
+    <a href="/paper/" rel="section"><i class="fa fa-cloud fa-fw"></i>论文</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/14/paper003-OmniMon/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="你的名字">
+      <meta itemprop="description" content="个人博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不忘初心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          paper003-OmniMon
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-14 21:08:15" itemprop="dateCreated datePublished" datetime="2021-01-14T21:08:15+08:00">2021-01-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-15 15:09:25" itemprop="dateModified" datetime="2021-01-15T15:09:25+08:00">2021-01-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/sketch/" itemprop="url" rel="index"><span itemprop="name">sketch</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/01/14/paper003-OmniMon/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/14/paper003-OmniMon/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>OmniMon: Re-architecting Network Telemetry with Resource Efficiency and Full Accuracy</p>
+<a id="more"></a>
+
+<p>SIGCOMM ’20</p>
+<hr>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>　　提出了一个兼顾资源效率和完全准确度的遥测架构；</p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>　　对于管理员来说，以全网络范围的方式监控海量数据流量离不开网络遥测。现存的遥测方案经常面临：resource efficiency（即：低 CPU、内存和带宽开销）和full accuracy（即：无误差和整体测量error-free and holistic measurement）两者之间平衡的困境。</p>
+<p>　　我们通过设计一个全网络范围的架构：OmniMon打破了这个困境。OmniMon可以在大规模数据中心的流级（flow-level）遥测同时实现resource efficiency and full accuracy。OmniMon精心协调整个网络中不同类型实体之间的协作，以执行遥测操作，从而在不影响完全准确性的前提下，满足每个实体的资源约束。它还提到全网时代同步的一致性和无误丢包推理的责任问题。（consistency* in network-wideepoch synchronization and <em>accountability</em> in error-free packet loss inference）</p>
+<p>　　我们在DPDK和P4中制作了OmniMon原型。在商用服务器和Tofino交换机上进行的实验证明了OmniMon的有效性超过了最先进的遥测设计。</p>
+<h2 id="CCS-CONCEPTS"><a href="#CCS-CONCEPTS" class="headerlink" title="CCS CONCEPTS"></a>CCS CONCEPTS</h2><p>　　• <strong>Networks</strong> → <strong>Network measurement</strong>.</p>
+<h2 id="KEYWORDS"><a href="#KEYWORDS" class="headerlink" title="KEYWORDS"></a>KEYWORDS</h2><p>　　Network measurement; Distributed systems</p>
+<h2 id="1-INTRODUCTION"><a href="#1-INTRODUCTION" class="headerlink" title="1. INTRODUCTION"></a>1. INTRODUCTION</h2><p>　　<strong>背景：</strong></p>
+<p>　　现代数据中心承载着许多关键应用程序，从而对网络管理提出了很高的要求。管理员需要高效的网络遥测解决方案来监控海量流量并了解其全网行为。理想情况下，我们在开发网络遥测时，既要追求资源效率，又要追求准确性（<em>resource efficiency</em> and <em>full accuracy</em>）。</p>
+<p>　　为了提高资源效率，网络实体（例如：终端主机和交换机）在计算、内存和带宽方面面临各种各样的资源约束。所以，遥测系统应该限制其性能开销，永远不要耗尽任何特定资源。尤其是网络遥测的性能开销必须远低于路由、NAT和防火墙中的普通数据包处理。需要注意的是，实现资源效率并不意味着随着网络规模的增长，资源使用量保持不变，相反，这里的资源效率目标是使网络遥测的资源开销远低于其他网络操作的资源开销。</p>
+<p>　　为了达到完全的准确性，遥测系统应该具有网络内的、始终在线的可视性，覆盖所有流量和所有实体，并提供无差错的流量级统计数据。</p>
+<p>　　传统的想法将资源效率和完全准确视为一种设计权衡。在一个极端，按流监控（如Trumpet[49]和Cisco Tetration[15]）的目的是进行细粒度、无差错的测量，但可能会产生无限制的资源使用（保证完全准确，不保证资源使用限制）；在另一个极端，粗粒度监控（如SNMP[12]、sFlow[64]和NetFlow[53]）提供了尽最大努力的测量，但不保证准确性（保证资源使用限制，不保证完全准确，只是尽最大努力测量）。在这两个极端之间，许多遥测系统采用了近似算法[5，26，28，29，38，48，62，63，65，72，75]，以实现具备可证明有界误差的资源高效率利用方案，或者实现只关注感兴趣的流量的事件匹配技术[25，33，52，69，74，79]。</p>
+<p>　　<strong>提出问题：能否打破网络遥测中资源效率与全精度的困境？</strong></p>
+<p>　　我们提出一个基本问题：能否打破网络遥测中资源效率与全精度的困境？我们观察到，在不同的网络实体之间，包括数据平面的终端主机和交换机以及控制平面的集中控制器，在资源可用性和网络内可见性之间存在微妙的设计权衡 (§2.1)。<strong>通过仔细重新构建网络实体之间的协作，在其资源约束的前提下，我们可以设计一种新的遥测架构，实现资源效率和完全的准确性</strong>。请注意，最近的遥测建议也采取了协作的方法[24，52，67]。然而，它们解决的是不同的设计目标（例如，expressiveness表现力[24，52]或 in-network visibility网络内可见性[67]），而不是资源-准确度（ resource-accuracy）的权衡。由于交换机资源紧张，它们的架构不能轻易实现完全的准确性（§2.2）。<strong>我们通过一个互补的协作遥测架构来填补这一空白</strong>，该架构将资源效率和完全准确度都视为’’一等公民（first-class citizens ） ‘’。</p>
+<p>　　<strong>本文贡献：</strong></p>
+<p>　　我们提出了OmniMon，这是一种新型的全网架构，它可以仔细协调所有实体（即终端主机、交换机和控制器）之间的遥测操作，主要目标是同时实现大规模数据中心的流级网络遥测的资源效率和完全准确。具体来说，OmniMon以分割-合并的方式重新构建网络遥测架构。通过<strong>分割</strong>，OmniMon将网络遥测分解为部分操作（partial operations），并在不同实体之间调度这些部分操作。这种设计充分利用了整个网络的可用资源，避开了各个实体的资源限制。通过<strong>合并</strong>，OmniMon协调所有实体协同执行部分操作。它结合了终端主机和交换机（在数据平面）的优势，在整个网络中实现针对每个流的无错误的跟踪；同时，它的控制器（在控制平面）对所有终端主机和交换机进行全网资源管理和集体分析。请注意，OmniMon可在整个网络中的终端主机和交换机子集上逐步部署（incrementally deployable）。</p>
+<p>　　（此处的思想可以结合SPEED）</p>
+<p>　　就像任何实际的分布式系统一样，OmniMon 的全网架构设计需要解决网络遥测的可靠性问题（reliability concerns）。因此，OmniMon融合了一致性和责任性（<em>consistency</em> and <em>accountability</em>）这两个可靠性保证，在实际部署中既能保持资源效率，又能保证完全的准确性。</p>
+<p>　　在<strong>一致性（consistency）</strong>方面，我们提出了一个混合一致性模型的全网纪元同步机制（epoch synchronization mechanism），如： (i)所有的实体在大多数时间都居住在同一个epoch，它们的epoch边界只存在很小的时间差（最多只能达到60<em>𝜇</em>s；see §8)； (ii)每一个数据包在传输过程中，即使是在跨epoch网络延迟的情况下，在同一epoch也是同步的。</p>
+<p>　　在<strong>责任性</strong>方面（accountability），我们规划了一个线性方程系统，用于每台交换机、每个流量的丢包推理，并通过考虑数据中心网络特性，确保在普通情况下存在唯一的解决方案。</p>
+<p>　　<strong>实验及结论：</strong></p>
+<p>　　我们在DPDK[16]和P4[56]中实现了OmniMon的原型。我们还将OmniMon与Sonata[24]集成，以支持基本的查询驱动的遥测任务。我们在商用服务器和Barefoot Tofino交换机[70]组成的测试平台进行实验，也进行了大规模的模拟，证明了OmniMon比11种最先进的遥测设计更有效。例如，在P4交换机部署中，与基于sketch的解决方案相比（并不是零错误），OmniMon减少了33-96%的内存使用量，减少了66-90%的操作次数，同时实现了零错误[29，38，43，72]。</p>
+<p>　　我们的Omni Mon原型的源代码现在可用：<a href="https://github.com/N2-Sys/OmniMon" target="_blank" rel="noopener">OmniMon</a>。</p>
+<h2 id="2-BACKGROUND-AND-MOTIVATION"><a href="#2-BACKGROUND-AND-MOTIVATION" class="headerlink" title="2. BACKGROUND AND MOTIVATION"></a>2. BACKGROUND AND MOTIVATION</h2><p>　　我们首先提出网络遥测中的资源和精度要求，并确定用例（§2.1）。然后，我们讨论了现有遥测系统中资源与准确度折衷的根本原因（第2.2节）。</p>
+<h3 id="2-1-Resource-and-Accuracy-Requirements"><a href="#2-1-Resource-and-Accuracy-Requirements" class="headerlink" title="2.1 Resource and Accuracy Requirements"></a>2.1 Resource and Accuracy Requirements</h3><p>　　我们专注于数据中心网络中的流量级网络遥测，在这个网络中，我们通过由数据包字段（例如，5-tuples）组合形成的流量密钥（<em>flowkey<em>）识别一个流量。我们以数值的形式，在被称为 “epochs”的固定长度的时间间隔内，测量流量级的统计数据。我们用整数来表示一个epochs，用当前时间戳除以epochs长度。 特别是，我们解决了网络遥测中的两个要求：资源效率和完全准确（</em>resource efficiency</em> and <em>full accuracy</em>）。</p>
+<p>　　<strong>Resource efficiency</strong>：我们的目标是数据中心规模的网络遥测框架，包括三种类型的实体：多个终端主机、多个交换机和一个集中式控制器。每种类型的实体都有不同的资源限制。因此，框架应满足相应实体的资源约束，以保持整体的包转发性能。同时，它应该只利用商用硬件的现有功能。我们对每一类实体的阐述如下。</p>
+<p>　　<em>(i) End-host</em>：终端主机在软件中（如内核空间[41]和用户空间[16]）处理网络边缘的网络流量。它们为整体流量跟踪提供了充足的内存空间，并为实现各种遥测方法提供了高度的灵活性。然而，由于终端主机位于网络的边缘，它们对全网测量的网络内部的可视性较差。另外，商品主机上的软件数据包处理的计算成本很高(如需要多个CPU核才能达到40Gbps的速率[17])，然而终端主机不可能将所有的CPU资源只用于网络遥测，因为CPU资源也被其他协同应用共享。</p>
+<p>　　<em>(ii) Switch</em>：商品交换ASIC实现了高转发吞吐量（如：Tbps级别[10，70]）和超低处理延迟（如：亚微秒 sub-microseconds）。然而，它们具有稀缺的片上存储器空间（例如，数十MB内存用于保持状态[34，45]），并且由于过热问题和高制造成本，提供有限的可编程性。</p>
+<p>　　<em>(iii) Controller</em>：控制器是一个逻辑实体，它集中协调所有终端主机和交换机，以获得全局网络视图。它可以由多个服务器组成，以便将它们的CPU和内存资源结合起来进行复杂的分析，并提供容错功能（例如，通过Zookeeper[30]）。然而，它的网络带宽有限，无法接收所有终端主机和交换机的大量流量。</p>
+<p>　　<strong>Full accuracy</strong>：我们将完全准确作为网络遥测的目标，这就意味着完整性和正确性（<em>completeness</em> and <em>correctness</em>）。所谓完整性，我们指的是跟踪所有实体和epochs的所有流量，不遗漏任何信息。所谓正确性，是指无误地跟踪每一个流的flowkey和完整值（complete values）。对于许多遥测任务来说，完全准确是非常重要的。我们展示了三个从full accuracy中大大受益的用例。请注意，现有的遥测系统也支持这样的用例(如[4，24])，但在实际部署中，任何测量误差都会降低其效率和可用性。</p>
+<p>　　<em>(i)</em>：<em>Performance evaluation:</em>管理员经常会提出新的技术来提高网络性能，并在实际部署中验证其正确性和性能增益。一个例子是评估基于flowlet的负载均衡（flowlet-based load balancing）[3]相比于比传统的基于流量的负载均衡（flow-based load balancing）的优势。管理员可以使用完整的每条流量轨迹进行细化，该轨迹揭示了每条链路的利用率和每个链路中的顶级流量。每条流完全准确的轨迹避免了测量变化或有错误的改进（flawed refinements），因此允许管理员专注于评估所提出的技术，而不必担心任何测量误差。</p>
+<p>　　<em>(ii)</em>：<em>Anomaly detection:</em>为了维护网络的可靠性和安全性，管理员需要识别网络异常（例如，行为不当或攻击misbehaviors or attacks）。 这种异常现象在实际发生之前很难预测。 因此，管理员需要对所有流量的每个epoch进行统计，以应对任何检测到的异常情况。每个epoch完全准确的统计消除了由于任何测量误差而导致的 错误警报或未检测到的异常情况，从而防止任何异常情况损害网络健壮性。在这里，我们专注于收集准确的流量统计，而提供精确的异常定义和配置则超出了我们的范围。</p>
+<p>　　<em>(iii) Network diagnosis（ 网络诊断）:</em>在生产中，由于配置不当和硬件故障等各种原因，性能下降（如突发性高丢包）是常见的。管理员需要按每个交换机和流量的统计数据来定位和修复有问题的交换机和有损耗的流量。每台交换机、每个流量统计的完全准确意味着任何性能问题都能及时正确定位，而不会受到任何不准确测量的干扰。</p>
+<h3 id="2-2-Motivation"><a href="#2-2-Motivation" class="headerlink" title="2.2 Motivation"></a>2.2 Motivation</h3><p>　　</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/sketch/" rel="tag"># sketch</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/07/paper001-OpenSketch/" rel="prev" title="paper001:OpenSketch">
+      <i class="fa fa-chevron-left"></i> paper001:OpenSketch
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结："><span class="nav-number">1.</span> <span class="nav-text">总结：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">2.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CCS-CONCEPTS"><span class="nav-number">3.</span> <span class="nav-text">CCS CONCEPTS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KEYWORDS"><span class="nav-number">4.</span> <span class="nav-text">KEYWORDS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-INTRODUCTION"><span class="nav-number">5.</span> <span class="nav-text">1. INTRODUCTION</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-BACKGROUND-AND-MOTIVATION"><span class="nav-number">6.</span> <span class="nav-text">2. BACKGROUND AND MOTIVATION</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Resource-and-Accuracy-Requirements"><span class="nav-number">6.1.</span> <span class="nav-text">2.1 Resource and Accuracy Requirements</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Motivation"><span class="nav-number">6.2.</span> <span class="nav-text">2.2 Motivation</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="你的名字"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">你的名字</p>
+  <div class="site-description" itemprop="description">个人博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yuan-128" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yuan-128" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:y_wangyi_2020@163.com" title="E-Mail → mailto:y_wangyi_2020@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.jianshu.com/u/6f466ead695d" title="简书 → https:&#x2F;&#x2F;www.jianshu.com&#x2F;u&#x2F;6f466ead695d" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>简书</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">你的名字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">93k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:24</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'tqCGsEMDMH8D9uah0oMuDCR8-gzGzoHsz',
+      appKey     : '1cV3TueyqMSuL2G9AfjdjKS7',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
