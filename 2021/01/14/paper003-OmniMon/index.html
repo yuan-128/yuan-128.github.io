@@ -28,7 +28,7 @@
 <meta property="og:description" content="OmniMon: Re-architecting Network Telemetry with Resource Efficiency and Full Accuracy">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-01-14T13:08:15.000Z">
-<meta property="article:modified_time" content="2021-01-15T14:11:52.253Z">
+<meta property="article:modified_time" content="2021-01-16T01:07:06.465Z">
 <meta property="article:author" content="你的名字">
 <meta property="article:tag" content="sketch">
 <meta name="twitter:card" content="summary">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-15 22:11:52" itemprop="dateModified" datetime="2021-01-15T22:11:52+08:00">2021-01-15</time>
+                <time title="修改时间：2021-01-16 09:07:06" itemprop="dateModified" datetime="2021-01-16T09:07:06+08:00">2021-01-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -285,12 +285,11 @@
       
         <p>OmniMon: Re-architecting Network Telemetry with Resource Efficiency and Full Accuracy</p>
 <a id="more"></a>
-
 <p>SIGCOMM ’20</p>
 <hr>
 <h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>　　提出了一个兼顾资源效率和完全准确度的遥测架构；</p>
 <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>　　对于管理员来说，以全网络范围的方式监控海量数据流量离不开网络遥测。现存的遥测方案经常面临：resource efficiency（即：低 CPU、内存和带宽开销）和full accuracy（即：无误差和整体测量error-free and holistic measurement）两者之间平衡的困境。</p>
-<p>　　我们通过设计一个全网络范围的架构：OmniMon打破了这个困境。OmniMon可以在大规模数据中心的流级（flow-level）遥测同时实现resource efficiency and full accuracy。OmniMon精心协调整个网络中不同类型实体之间的协作，以执行遥测操作，从而在不影响完全准确性的前提下，满足每个实体的资源约束。它还提到全网时代同步的一致性和无误丢包推理的责任问题。（consistency* in network-wideepoch synchronization and <em>accountability</em> in error-free packet loss inference）</p>
+<p>　　我们通过设计一个全网络范围的架构：OmniMon打破了这个困境。OmniMon可以在大规模数据中心的流级（flow-level）遥测同时实现resource efficiency and full accuracy。OmniMon精心协调整个网络中不同类型实体之间的协作，以执行遥测操作，从而在不影响完全准确性的前提下，满足每个实体的资源约束。它还提到全网时代同步的一致性和无误丢包推理的责任问题。（consistency<em> in network-wideepoch synchronization and </em>accountability* in error-free packet loss inference）</p>
 <p>　　我们在DPDK和P4中制作了OmniMon原型。在商用服务器和Tofino交换机上进行的实验证明了OmniMon的有效性超过了最先进的遥测设计。</p>
 <h2 id="CCS-CONCEPTS"><a href="#CCS-CONCEPTS" class="headerlink" title="CCS CONCEPTS"></a>CCS CONCEPTS</h2><p>　　• <strong>Networks</strong> → <strong>Network measurement</strong>.</p>
 <h2 id="KEYWORDS"><a href="#KEYWORDS" class="headerlink" title="KEYWORDS"></a>KEYWORDS</h2><p>　　Network measurement; Distributed systems</p>
@@ -311,7 +310,7 @@
 <p>　　我们在DPDK[16]和P4[56]中实现了OmniMon的原型。我们还将OmniMon与Sonata[24]集成，以支持基本的查询驱动的遥测任务。我们在商用服务器和Barefoot Tofino交换机[70]组成的测试平台进行实验，也进行了大规模的模拟，证明了OmniMon比11种最先进的遥测设计更有效。例如，在P4交换机部署中，与基于sketch的解决方案相比（并不是零错误），OmniMon减少了33-96%的内存使用量，减少了66-90%的操作次数，同时实现了零错误[29，38，43，72]。</p>
 <p>　　我们的Omni Mon原型的源代码现在可用：<a href="https://github.com/N2-Sys/OmniMon" target="_blank" rel="noopener">OmniMon</a>。</p>
 <h2 id="2-BACKGROUND-AND-MOTIVATION"><a href="#2-BACKGROUND-AND-MOTIVATION" class="headerlink" title="2. BACKGROUND AND MOTIVATION"></a>2. BACKGROUND AND MOTIVATION</h2><p>　　我们首先提出网络遥测中的资源和精度要求，并确定用例（§2.1）。然后，我们讨论了现有遥测系统中资源与准确度折衷的根本原因（第2.2节）。</p>
-<h3 id="2-1-Resource-and-Accuracy-Requirements"><a href="#2-1-Resource-and-Accuracy-Requirements" class="headerlink" title="2.1 Resource and Accuracy Requirements"></a>2.1 Resource and Accuracy Requirements</h3><p>　　我们专注于数据中心网络中的流量级网络遥测，在这个网络中，我们通过由数据包字段（例如，5-tuples）组合形成的流量密钥（<em>flowkey<em>）识别一个流量。我们以数值的形式，在被称为 “epochs”的固定长度的时间间隔内，测量流量级的统计数据。我们用整数来表示一个epochs，用当前时间戳除以epochs长度。 特别是，我们解决了网络遥测中的两个要求：资源效率和完全准确（</em>resource efficiency</em> and <em>full accuracy</em>）。</p>
+<h3 id="2-1-Resource-and-Accuracy-Requirements"><a href="#2-1-Resource-and-Accuracy-Requirements" class="headerlink" title="2.1 Resource and Accuracy Requirements"></a>2.1 Resource and Accuracy Requirements</h3><p>　　我们专注于数据中心网络中的流量级网络遥测，在这个网络中，我们通过由数据包字段（例如，5-tuples）组合形成的流量密钥（<em>flowkey</em>）识别一个流量。我们以数值的形式，在被称为 “epochs”的固定长度的时间间隔内，测量流量级的统计数据。我们用整数来表示一个epochs，用当前时间戳除以epochs长度。 特别是，我们解决了网络遥测中的两个要求：资源效率和完全准确（<em>resource efficiency</em> and <em>full accuracy</em>）。</p>
 <p>　　<strong>Resource efficiency</strong>：我们的目标是数据中心规模的网络遥测框架，包括三种类型的实体：多个终端主机、多个交换机和一个集中式控制器。每种类型的实体都有不同的资源限制。因此，框架应满足相应实体的资源约束，以保持整体的包转发性能。同时，它应该只利用商用硬件的现有功能。我们对每一类实体的阐述如下。</p>
 <p>　　<em>(i) End-host</em>：终端主机在软件中（如内核空间[41]和用户空间[16]）处理网络边缘的网络流量。它们为整体流量跟踪提供了充足的内存空间，并为实现各种遥测方法提供了高度的灵活性。然而，由于终端主机位于网络的边缘，它们对全网测量的网络内部的可视性较差。另外，商品主机上的软件数据包处理的计算成本很高(如需要多个CPU核才能达到40Gbps的速率[17])，然而终端主机不可能将所有的CPU资源只用于网络遥测，因为CPU资源也被其他协同应用共享。</p>
 <p>　　<em>(ii) Switch</em>：商品交换ASIC实现了高转发吞吐量（如：Tbps级别[10，70]）和超低处理延迟（如：亚微秒 sub-microseconds）。然而，它们具有稀缺的片上存储器空间（例如，数十MB内存用于保持状态[34，45]），并且由于过热问题和高制造成本，提供有限的可编程性。</p>
@@ -322,7 +321,9 @@
 <p>　　<em>(iii) Network diagnosis（ 网络诊断）:</em>在生产中，由于配置不当和硬件故障等各种原因，性能下降（如突发性高丢包）是常见的。管理员需要按每个交换机和流量的统计数据来定位和修复有问题的交换机和有损耗的流量。每台交换机、每个流量统计的完全准确意味着任何性能问题都能及时正确定位，而不会受到任何不准确测量的干扰。</p>
 <h3 id="2-2-Motivation"><a href="#2-2-Motivation" class="headerlink" title="2.2 Motivation"></a>2.2 Motivation</h3><p>　　现有的遥测系统(§9)将资源效率和完全准确度作为一种设计权衡：它们要么提供足够的资源(即CPU、内存和带宽)来实现完全准确度，要么根据单个实体的资源限制牺牲完全准确度。（保证准确度就必须扩展资源，不扩展资源就之能放弃准确度）我们认为，这种权衡的存在有两个根本原因。</p>
 <p>　　<strong>Root cause 1: Tight coupling between flow tracking and resource management.</strong>（流量跟踪与资源管理之间的紧密耦合）现存的方法是整体地实现遥测操作，其中终端主机或交换机提取每个观察到的流的值，并提供资源来跟踪这些值（由flowkeys引用）。为了解决流量之间的任何资源冲突，所提供的资源量必须足够大，然而这也在很大程度上取决于所需的准确度和各个实体的资源限制。</p>
-<p>　　考虑一个例子，我们使用一个计数器的哈希表（例如，如Trumpet[49]）来跟踪所有流量的flowkeys和值。为了解决哈希冲突，我们可以利用链式（chaining）或布谷鸟哈希[57]来组织碰撞流（ colliding flows）的计数器。 这样的设计在软件中是可行的，但在交换机ASIC中却不能实现，因为由于交换机可编程性有限，很难实现哈希表的复杂内存管理。如果我们单纯地增加哈希表的大小，并依靠统一的哈希函数来解决交换机中的哈希碰撞，那么所需的计数器的数量将会非常大。图1(a)显示了不同哈希碰撞率下的内存使用情况(对于4字节的计数器)与流量数量的关系(一般来说，对于𝑚计数器和𝑛流量，碰撞率为$1-\frac{m !}{n ! m^{n}}$即使是1000个流量，在1%的碰撞率下，内存的使用量也达到了200MB，这远远超出了交换机的容量。</p>
+<p>　　考虑一个例子，我们使用一个计数器的哈希表（例如，如Trumpet[49]）来跟踪所有流量的flowkeys和值。为了解决哈希冲突，我们可以利用链式（chaining）或布谷鸟哈希[57]来组织碰撞流（ colliding flows）的计数器。 这样的设计在软件中是可行的，但在交换机ASIC中却不能实现，因为由于交换机可编程性有限，很难实现哈希表的复杂内存管理。如果我们单纯地增加哈希表的大小，并依靠统一的哈希函数来解决交换机中的哈希碰撞，那么所需的计数器的数量将会非常大。图1(a)显示了不同哈希碰撞率下的内存使用情况(对于4字节的计数器)与流量数量的关系(一般来说，对于𝑚计数器和𝑛流量，碰撞率为</p>
+<p>$1-\frac{m !}{n ! m^{n}}$</p>
+<p>即使是1000个流量，在1%的碰撞率下，内存的使用量也达到了200MB，这远远超出了交换机的容量。</p>
 <p>　　现有的基于交换机的遥测系统为了将所有的操作融入交换机ASIC中，牺牲了精度[47，51]。一种解决方案是利用近似算法(如：sampling[62，63]、top-k counting[5，26，65]和sketch[28，29，38，43，48，75])来适应适应存储器中的紧凑结构。但是，由于提供的资源有限，不能保证完全的准确性（full accuracy）。另一种解决方案是将流量卸载到控制器上，以减轻交换机侧的资源占用[25，69，74，79]，但它只监控感兴趣的流量，以避免压倒控制器的链路容量。</p>
 <p>　　<strong>Root cause 2: Limited network-wide collaboration.</strong>（有限的全网协作）一些遥测设计采用了实体间协作的形式，但它们针对的是不同的设计目标，并仍然受制于资源与精度的权衡。例如，一些系统部署了一个控制器，用来收集来自终端主机或交换机[28，29，38，49]的测量结果和/或用来调整交换机之间的资源[43，47，48，62]。一些混合架构[24，52]允许交换机和控制器之间的协作，使遥测查询引擎更高效且富有表现力，而其他架构[32，42，67]则允许终端主机和交换机之间的协作，以结合终端主机的可编程性和交换机的可视性。然而，现有的协作方法并不能协调所有实体(即终端主机、交换机和控制器)之间的资源以实现完全的准确性。一些实体的资源有限，无法做到完全准确。</p>
 <p>　　我们使用Sonata[24]，一个协作的遥测架构，来激励我们的主张。sonata的目标是兼顾表现力和可伸缩性。它将数据流操作从控制器卸载到交换机上，以利用交换机快速处理数据包的能力。但是，它不能在不牺牲精度的前提下，减轻交换机端操作的内存和带宽占用。我们以开源的Sonata原型为例，使用[24]中报道的11个应用来评估其资源消耗。我们将改变每个应用的内存（范围是从128 KB到1,024 KB），并在Barefoot Tofino交换机上测量到控制器的总交换机流量[70]。我们比较两种情况：  (i) ‘’精度下降’’，Sonata的原型中默认设置不处理哈希碰撞。 (ii)’’完全准确’’，在这种情况下，我们通过将每个流映射到𝑑(这里设置为2)个计数器来实现完全准确，如果一个流在所有的𝑑个计数器中都出现散列碰撞，则将该流放到控制器(参见[24]第3.1节)。我们在每个epoch都配置了$10^5$个活跃的流量（active flows）。图1(b)显示，在不同的应用内存下，accuracy degradation都会触发56 MB/s左右的流量。对于full accuracy的情况，由于哈希碰撞，触发的流量大幅增加(例如：在每个应用内存为128KB的情况下，是accuracy degradation的2.2倍)。请注意，处理哈希碰撞也会引起其他类型的交换机资源的过度使用（§8）。</p>
@@ -330,7 +331,7 @@
 <h3 id="3-1-Design-Overview"><a href="#3-1-Design-Overview" class="headerlink" title="3.1 Design Overview"></a>3.1 Design Overview</h3><p>　　OmniMon是一种全网遥测架构，跨越数据中心网络中的不同实体（即终端主机、交换机和控制器）。它从架构的角度出发，通过重新架构所有实体之间受资源约束的协作，达到资源效率和完全准确的目的。它与现有的协作遥测设计兼容；作为案例研究，我们添加了一个基于Sonata[24]的查询引擎作为OmniMon上的应用，用于表达式遥测（§7）。由于不同类型的实体在资源可用性和网络内可见性上的不同，协调它们之间的协作是不简单的（non-trivial）（§2.1）。</p>
 <p>　　</p>
 <h2 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h2><ol>
-<li><a href="https://blog.csdn.net/BigFatSheep/article/details/80045371?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1.control" target="_blank" rel="noopener">布谷鸟哈希：Cuckoo hashing</a></li>
+<li><a href="https://blog.csdn.net/BigFatSheep/article/details/80045371?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1.control" target="_blank" rel="noopener">布谷鸟哈希：Cuckoo hashing</a></li>
 <li></li>
 </ol>
 
