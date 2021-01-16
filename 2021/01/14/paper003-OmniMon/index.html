@@ -27,11 +27,13 @@
 <meta property="og:site_name" content="不忘初心">
 <meta property="og:description" content="OmniMon: Re-architecting Network Telemetry with Resource Efficiency and Full Accuracy">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2021/01/14/paper003-OmniMon/figure2.png">
 <meta property="article:published_time" content="2021-01-14T13:08:15.000Z">
-<meta property="article:modified_time" content="2021-01-16T01:31:24.826Z">
+<meta property="article:modified_time" content="2021-01-16T03:51:23.198Z">
 <meta property="article:author" content="你的名字">
 <meta property="article:tag" content="sketch">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/01/14/paper003-OmniMon/figure2.png">
 
 <link rel="canonical" href="http://yoursite.com/2021/01/14/paper003-OmniMon/">
 
@@ -232,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-16 09:31:24" itemprop="dateModified" datetime="2021-01-16T09:31:24+08:00">2021-01-16</time>
+                <time title="修改时间：2021-01-16 11:51:23" itemprop="dateModified" datetime="2021-01-16T11:51:23+08:00">2021-01-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -264,14 +266,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>7.3k</span>
+              <span>9.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
+              <span>9 分钟</span>
             </span>
 
         </div>
@@ -287,7 +289,7 @@
 <a id="more"></a>
 <p>SIGCOMM ’20</p>
 <hr>
-<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>　　提出了一个兼顾资源效率和完全准确度的遥测架构；</p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>　　提出了一个兼顾资源效率和完全准确度的分布式遥测架构；</p>
 <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>　　对于管理员来说，以全网络范围的方式监控海量数据流量离不开网络遥测。现存的遥测方案经常面临：resource efficiency（即：低 CPU、内存和带宽开销）和full accuracy（即：无误差和整体测量error-free and holistic measurement）两者之间平衡的困境。</p>
 <p>　　我们通过设计一个全网络范围的架构：OmniMon打破了这个困境。OmniMon可以在大规模数据中心的流级（flow-level）遥测同时实现resource efficiency and full accuracy。OmniMon精心协调整个网络中不同类型实体之间的协作，以执行遥测操作，从而在不影响完全准确性的前提下，满足每个实体的资源约束。它还提到全网时代同步的一致性和无误丢包推理的责任问题。（consistency<em> in network-wideepoch synchronization and </em>accountability* in error-free packet loss inference）</p>
 <p>　　我们在DPDK和P4中制作了OmniMon原型。在商用服务器和Tofino交换机上进行的实验证明了OmniMon的有效性超过了最先进的遥测设计。</p>
@@ -321,16 +323,30 @@
 <p>　　<em>(iii) Network diagnosis（ 网络诊断）:</em>在生产中，由于配置不当和硬件故障等各种原因，性能下降（如突发性高丢包）是常见的。管理员需要按每个交换机和流量的统计数据来定位和修复有问题的交换机和有损耗的流量。每台交换机、每个流量统计的完全准确意味着任何性能问题都能及时正确定位，而不会受到任何不准确测量的干扰。</p>
 <h3 id="2-2-Motivation"><a href="#2-2-Motivation" class="headerlink" title="2.2 Motivation"></a>2.2 Motivation</h3><p>　　现有的遥测系统(§9)将资源效率和完全准确度作为一种设计权衡：它们要么提供足够的资源(即CPU、内存和带宽)来实现完全准确度，要么根据单个实体的资源限制牺牲完全准确度。（保证准确度就必须扩展资源，不扩展资源就之能放弃准确度）我们认为，这种权衡的存在有两个根本原因。</p>
 <p>　　<strong>Root cause 1: Tight coupling between flow tracking and resource management.</strong>（流量跟踪与资源管理之间的紧密耦合）现存的方法是整体地实现遥测操作，其中终端主机或交换机提取每个观察到的流的值，并提供资源来跟踪这些值（由flowkeys引用）。为了解决流量之间的任何资源冲突，所提供的资源量必须足够大，然而这也在很大程度上取决于所需的准确度和各个实体的资源限制。</p>
-<p>　　考虑一个例子，我们使用一个计数器的哈希表（例如，如Trumpet[49]）来跟踪所有流量的flowkeys和值。为了解决哈希冲突，我们可以利用链式（chaining）或布谷鸟哈希[57]来组织碰撞流（ colliding flows）的计数器。 这样的设计在软件中是可行的，但在交换机ASIC中却不能实现，因为由于交换机可编程性有限，很难实现哈希表的复杂内存管理。如果我们单纯地增加哈希表的大小，并依靠统一的哈希函数来解决交换机中的哈希碰撞，那么所需的计数器的数量将会非常大。图1(a)显示了不同哈希碰撞率下的内存使用情况(对于4字节的计数器)与流量数量的关系(一般来说，对于𝑚计数器和𝑛流量，碰撞率为$1-\frac{m !}{n ! m^{n}}$即使是1000个流量，在1%的碰撞率下，内存的使用量也达到了200MB，这远远超出了交换机的容量。</p>
+<p>　　考虑一个例子，我们使用一个计数器的哈希表（例如，如Trumpet[49]）来跟踪所有流量的flowkeys和值。为了解决哈希冲突，我们可以利用链式（chaining）或布谷鸟哈希[57]来组织碰撞流（ colliding flows）的计数器。 这样的设计在软件中是可行的，但在交换机ASIC中却不能实现，因为由于交换机可编程性有限，很难实现哈希表的复杂内存管理。如果我们单纯地增加哈希表的大小，并依靠统一的哈希函数来解决交换机中的哈希碰撞，那么所需的计数器的数量将会非常大。图1(a)显示了不同哈希碰撞率下的内存使用情况(对于4字节的计数器)与流量数量的关系（一般来说，对于𝑚计数器和𝑛流量，碰撞率为$1-\frac{m !}{n ! m^{n}}$）即使是1000个流量，在1%的碰撞率下，内存的使用量也达到了200MB，这远远超出了交换机的容量。</p>
 <p>　　现有的基于交换机的遥测系统为了将所有的操作融入交换机ASIC中，牺牲了精度[47，51]。一种解决方案是利用近似算法(如：sampling[62，63]、top-k counting[5，26，65]和sketch[28，29，38，43，48，75])来适应适应存储器中的紧凑结构。但是，由于提供的资源有限，不能保证完全的准确性（full accuracy）。另一种解决方案是将流量卸载到控制器上，以减轻交换机侧的资源占用[25，69，74，79]，但它只监控感兴趣的流量，以避免压倒控制器的链路容量。</p>
 <p>　　<strong>Root cause 2: Limited network-wide collaboration.</strong>（有限的全网协作）一些遥测设计采用了实体间协作的形式，但它们针对的是不同的设计目标，并仍然受制于资源与精度的权衡。例如，一些系统部署了一个控制器，用来收集来自终端主机或交换机[28，29，38，49]的测量结果和/或用来调整交换机之间的资源[43，47，48，62]。一些混合架构[24，52]允许交换机和控制器之间的协作，使遥测查询引擎更高效且富有表现力，而其他架构[32，42，67]则允许终端主机和交换机之间的协作，以结合终端主机的可编程性和交换机的可视性。然而，现有的协作方法并不能协调所有实体(即终端主机、交换机和控制器)之间的资源以实现完全的准确性。一些实体的资源有限，无法做到完全准确。</p>
 <p>　　我们使用Sonata[24]，一个协作的遥测架构，来激励我们的主张。sonata的目标是兼顾表现力和可伸缩性。它将数据流操作从控制器卸载到交换机上，以利用交换机快速处理数据包的能力。但是，它不能在不牺牲精度的前提下，减轻交换机端操作的内存和带宽占用。我们以开源的Sonata原型为例，使用[24]中报道的11个应用来评估其资源消耗。我们将改变每个应用的内存（范围是从128 KB到1,024 KB），并在Barefoot Tofino交换机上测量到控制器的总交换机流量[70]。我们比较两种情况：  (i) ‘’精度下降’’，Sonata的原型中默认设置不处理哈希碰撞。 (ii)’’完全准确’’，在这种情况下，我们通过将每个流映射到𝑑(这里设置为2)个计数器来实现完全准确，如果一个流在所有的𝑑个计数器中都出现散列碰撞，则将该流放到控制器(参见[24]第3.1节)。我们在每个epoch都配置了$10^5$个活跃的流量（active flows）。图1(b)显示，在不同的应用内存下，accuracy degradation都会触发56 MB/s左右的流量。对于full accuracy的情况，由于哈希碰撞，触发的流量大幅增加(例如：在每个应用内存为128KB的情况下，是accuracy degradation的2.2倍)。请注意，处理哈希碰撞也会引起其他类型的交换机资源的过度使用（§8）。</p>
 <h2 id="3-OmniMon-DESIGN"><a href="#3-OmniMon-DESIGN" class="headerlink" title="3. OmniMon DESIGN"></a>3. OmniMon DESIGN</h2><p>　　我们陈述我们的设计目标和假设（§3.1），并展示OmniMon如何实现资源效率和完全的准确性（§3.2）。我们提出了我们设计中的一致性和问责制问题（ consistency and accountability）（§3.3）。</p>
-<h3 id="3-1-Design-Overview"><a href="#3-1-Design-Overview" class="headerlink" title="3.1 Design Overview"></a>3.1 Design Overview</h3><p>　　OmniMon是一种全网遥测架构，跨越数据中心网络中的不同实体（即终端主机、交换机和控制器）。它从架构的角度出发，通过重新架构所有实体之间受资源约束的协作，达到资源效率和完全准确的目的。它与现有的协作遥测设计兼容；作为案例研究，我们添加了一个基于Sonata[24]的查询引擎作为OmniMon上的应用，用于表达式遥测（§7）。由于不同类型的实体在资源可用性和网络内可见性上的不同，协调它们之间的协作是不简单的（non-trivial）（§2.1）。</p>
-<p>　　</p>
+<h3 id="3-1-Design-Overview"><a href="#3-1-Design-Overview" class="headerlink" title="3.1 Design Overview"></a>3.1 Design Overview</h3><p>　　OmniMon是一种全网遥测架构，跨越数据中心网络中的不同实体（即终端主机、交换机和控制器）。它从架构的角度出发，通过重新架构所有实体之间受资源约束的协作，达到资源效率和完全准确的目的。它与现有的协作遥测设计兼容；作为案例研究，我们添加了一个基于Sonata[24]的查询引擎作为OmniMon上的应用，用于表达式遥测（§7）。由于不同类型的实体在资源可用性和网络内可见性上的不同，协调它们之间的协作是不简单的（non-trivial）（§2.1）。为此，我们从构建实用的分布式系统角度出发，解决了三个经典问题： (i)我们如何在不同实体（即终端主机、交换机和控制器）之间分配遥测操作？ (ii)不同实体之间应该如何协调？ (iii)面对不可靠的事件，我们应该如何实现可靠的协调？</p>
+<p>　　<strong>Assumptions.</strong>我们做了几个设计假设：</p>
+<p>　　- 我们关注的是单一管理域下的数据中心网络，这是现代数据中心的常见部署环境。管理员可以访问所有实体并对其进行配置。控制器对每个实体中的数据包处理策略(如路由表、访问控制列表和链路故障引起的路径变化)有充分的了解。<br>　　- 我们只考虑实际进入网络的数据包(即忽略终端主机中丢弃的数据包)。这可以通过在每个终端主机的网络堆栈的适当位置实现测量来实现（例如，Linux内核中的qdisc）。测量和剖析终端主机的网络栈不在我们的范围之内。<br>　　- 数据包格式是可扩展的。在传输过程中，数据包可以在现有的数据包头中的各种未使用的字段（如VXLAN中的保留位）中嵌入新的信息[3，20]。最近在用户空间网络堆栈[16]和可编程交换机ASIC[70]方面的进展也允许管理员随时定义自定义的数据包字段。需要注意的是，嵌入式信息的大小要小，以限制传输开销。</p>
+<h3 id="3-2-Split-and-Merge-Telemetry"><a href="#3-2-Split-and-Merge-Telemetry" class="headerlink" title="3.2 Split-and-Merge Telemetry"></a>3.2 Split-and-Merge Telemetry</h3><p>　　图2展示了OmniMon架构。回顾一下，OmniMon 遵循网络遥测的分割和合并方法（§1）。具体来说，它通过流键跟踪、值更新、流图和集体分析这四个部分操作（<em>flowkey tracking</em>, <em>value updates</em>, <em>flow mapping</em>, and <em>collective analysis</em>）来进行流转跟踪和资源管理。它在不同实体的异构资源需求的前提下，协调终端主机、交换机和控制器之间的这些部分操作。</p>
+<p><img src="/2021/01/14/paper003-OmniMon/figure2.png" alt></p>
+<p>　　在下文中，我们将描述每一个局部操作，并展示如何同时实现资源效率和完全的准确性。我们首先假设有一个全局时钟，精确地同步所有实体，并且不存在丢包现象。我们以后会在§3.3中放宽这些假定。</p>
+<p>　　<strong>Flowkey tracking</strong>（流键跟踪）：OmniMon拥有网络中每个活动流的流密钥副本。当一个新流开始时，OmniMon会在源端主机中的哈希表中记录其flowkey。它在流终止时删除流密钥，这由TCP流中的FIN/RST数据包，或在较长的空闲时间（如30分钟[27]）之后自动删除。</p>
+<p>　　<strong>Value updates</strong>（更新值）：OmniMon 在终端主机（具有充足的内存空间）和交换机（具有网络内可见性）中跟踪流量值。每个终端主机或交换机都维护着一组<em>slots</em> ，每个<em>slots</em> 有多个计数器，并进一步将<em>slots</em> 划分为不同epochs的组。由于终端主机和交换机对资源的要求不同，它们执行值更新的方式也不同。</p>
+<p>　　在有足够的内存空间的情况下，终端主机每一个epoch为每个流动态分配一个专用slot。当一个流量终止时，它的slots将被回收。一个终端主机拥有两种类型的slots，即入口slots和出口slots。它将以自己为目的地的入站流量的值存储在入口slot（ingress slot）中，也将源自自己的出站流量的值存储在出口slot（egress slot）中。</p>
+<p>　　另一方面，由于交换机的内存空间有限，我们允许一个slot由多个流共享。每个交换机将一个流映射到一个slots的子集，并通过流值更新所有这些slots中的计数器。因此，一个slot拥有多个流的汇总值。之后我们通过集体分析来恢复每个流量的值（见下文）。</p>
+<p>　　<strong>Flow mapping.</strong>OmniMon协调所有终端主机和交换机将流量正确地映射到slots上，以进行流量键跟踪和值更新。其流量映射设计建立在带内数据包嵌入和带外消息的基础上。</p>
+<p>　　<em>(i)**Flow mapping in end-hosts.</em>OmniMon 通过称为主机索引的索引号将流量映射到其在源端主机和目的端主机中的slot。当源端主机对一个新流应用流密钥跟踪时，首先计算主机索引，该索引表示流密钥在哈希表中的入口位置。然后，它将主机索引与流的出口slot关联起来，并将主机索引和epoch嵌入到流的每个传出数据包中。目的端主机从每个接收到的数据包中提取主机索引和epoch，并将它们与入口slot关联起来。使用主机索引消除了另一个哈希查找，这是终端主机的主要开销（§8中的Exp#1）。</p>
+<p>　　<em>(ii) Flow mapping in switches.</em>OmniMon 为每个流量使用称为交换机索引的索引号，以确定流量如何映射到交换机中的多个slots。交换机索引由控制器和源端主机协同选择。具体来说，控制器为每一个可能的流量映射到交换机中的插slot分配一个唯一的交换机索引。然后，它为每个终端主机预先分配一个不相干的交换机索引子集。源端主机为一个新流选择一个交换机索引（详见§5.2），并将交换机索引（连同主机索引和epoch）嵌入流的每个传出数据包中。当交换机收到一个数据包时，会从数据包中检索出交换机索引和epoch，并更新相应的映射slot。这样的协作方式不仅可以利用控制器的可见性来缓解开交换机slot中的哈希冲突，还可以让源端主机在不查询控制器的情况下快速选择交换机slots。</p>
+<p>　　<strong>Collective analysis.</strong>对于每个epoch，控制器从所有终端主机和交换机收集哈希表（流密钥）和slots（值）。它进行集体分析，将每个流量与它的源端主机和目的端主机以及流量所经过的每个交换机中记录的值联系起来，从而从每个端主机和交换机中恢复每个流量的值。由于OmniMon将所有流键保存在其源端主机中，控制器可以直接从源端主机和目的端主机中的专用slots中获取每流值（通过主机索引）。交换机中的每个流量值也可以根据终端主机中的流键（flowkeys）和值（values）从共享slots中恢复。具体来说，控制器知道所有映射到共享slot的流（通过交换机索引）。如果没有丢包，slot中的值就是映射到slot中的流的集合（例如：对于加法值，slot中的值等于每流值的总和）；否则，在有丢包的情况下，OmniMon通过丢包推理恢复每个流的值（§5）。</p>
+<p>　　<strong>Summary.</strong></p>
 <h2 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h2><ol>
 <li><a href="https://blog.csdn.net/BigFatSheep/article/details/80045371?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1.control" target="_blank" rel="noopener">布谷鸟哈希：Cuckoo hashing</a></li>
-<li></li>
+<li>数据中心</li>
+<li>QDISC排队规则</li>
 </ol>
 
     </div>
@@ -413,7 +429,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结："><span class="nav-number">1.</span> <span class="nav-text">总结：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">2.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CCS-CONCEPTS"><span class="nav-number">3.</span> <span class="nav-text">CCS CONCEPTS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KEYWORDS"><span class="nav-number">4.</span> <span class="nav-text">KEYWORDS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-INTRODUCTION"><span class="nav-number">5.</span> <span class="nav-text">1. INTRODUCTION</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-BACKGROUND-AND-MOTIVATION"><span class="nav-number">6.</span> <span class="nav-text">2. BACKGROUND AND MOTIVATION</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Resource-and-Accuracy-Requirements"><span class="nav-number">6.1.</span> <span class="nav-text">2.1 Resource and Accuracy Requirements</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Motivation"><span class="nav-number">6.2.</span> <span class="nav-text">2.2 Motivation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-OmniMon-DESIGN"><span class="nav-number">7.</span> <span class="nav-text">3. OmniMon DESIGN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Design-Overview"><span class="nav-number">7.1.</span> <span class="nav-text">3.1 Design Overview</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充："><span class="nav-number">8.</span> <span class="nav-text">补充：</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结："><span class="nav-number">1.</span> <span class="nav-text">总结：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">2.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CCS-CONCEPTS"><span class="nav-number">3.</span> <span class="nav-text">CCS CONCEPTS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KEYWORDS"><span class="nav-number">4.</span> <span class="nav-text">KEYWORDS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-INTRODUCTION"><span class="nav-number">5.</span> <span class="nav-text">1. INTRODUCTION</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-BACKGROUND-AND-MOTIVATION"><span class="nav-number">6.</span> <span class="nav-text">2. BACKGROUND AND MOTIVATION</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Resource-and-Accuracy-Requirements"><span class="nav-number">6.1.</span> <span class="nav-text">2.1 Resource and Accuracy Requirements</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Motivation"><span class="nav-number">6.2.</span> <span class="nav-text">2.2 Motivation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-OmniMon-DESIGN"><span class="nav-number">7.</span> <span class="nav-text">3. OmniMon DESIGN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Design-Overview"><span class="nav-number">7.1.</span> <span class="nav-text">3.1 Design Overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Split-and-Merge-Telemetry"><span class="nav-number">7.2.</span> <span class="nav-text">3.2 Split-and-Merge Telemetry</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充："><span class="nav-number">8.</span> <span class="nav-text">补充：</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -490,13 +506,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">96k</span>
+    <span title="站点总字数">99k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:27</span>
+    <span title="站点阅读时长">1:30</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
