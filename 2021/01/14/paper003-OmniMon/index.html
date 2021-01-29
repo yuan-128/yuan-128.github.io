@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/2021/01/14/paper003-OmniMon/figure2.png">
 <meta property="article:published_time" content="2021-01-14T13:08:15.000Z">
-<meta property="article:modified_time" content="2021-01-19T13:01:11.275Z">
+<meta property="article:modified_time" content="2021-01-29T09:28:17.039Z">
 <meta property="article:author" content="你的名字">
 <meta property="article:tag" content="sketch">
 <meta name="twitter:card" content="summary">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-19 21:01:11" itemprop="dateModified" datetime="2021-01-19T21:01:11+08:00">2021-01-19</time>
+                <time title="修改时间：2021-01-29 17:28:17" itemprop="dateModified" datetime="2021-01-29T17:28:17+08:00">2021-01-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -363,19 +363,21 @@
 <h2 id="5-ACCOUNTABILITY（问责制）"><a href="#5-ACCOUNTABILITY（问责制）" class="headerlink" title="5. ACCOUNTABILITY（问责制）"></a>5. ACCOUNTABILITY（问责制）</h2><p>　　OmniMon通过在每个交换机、每个流量的基础上推断准确的流量损失来实现责任制，从而可以从每个交换机的共享slots中恢复每个流量值。我们的损失推理与经典的网络断层扫描（network tomography）[8，22]有关，然而后者由于网内可见性有限，往往只关注终端主机信息，目的是将精度损失降到最低。相比之下，我们的推理模型是全网的（覆盖所有终端主机和交换机），目标是完全准确。在这里，我们以加法流量值为目标，并在附录E中描述如何将非加法流量统计转换为加法值。</p>
 <h3 id="5-1-Problem"><a href="#5-1-Problem" class="headerlink" title="5.1 Problem"></a>5.1 Problem</h3><p>　　<strong>Motivating example.</strong>在不失通用性的前提下，我们把重点放在数据包数量上。我们将<strong>包丢失推理问题表述为求解一个线性方程系统</strong>（简称线性系统），其中变量代表单个的每台交换机、每个流量的包丢失。然而，线性系统可能有多个可行的解（即我们无法唯一地推断出准确的数据包损失）。我们考虑一个玩具的例子（toy example）(图5)，促使问题的解决。假设有两个有损流量𝑓1和𝑓2，这两个流量都通过交换机𝑠1和𝑠2，并且在两个交换机中共用同一个slots。根据源端主机和目的端主机中的流量值，我们知道每个流量正好丢失一个数据包。但是，我们无法判断每个交换机中哪个流量的数据包被丢弃：要么𝑠1丢弃𝑓1的数据包，而𝑠2丢弃𝑓2的数据包；要么𝑠1丢弃𝑓2的数据包，而𝑠2丢弃𝑓1的数据包。</p>
 <p>　　上面的例子显示了一种极端的情况，即即使只有两个有损失的流，也会使精确的丢包推断变得不可行。尽管如此，通过加入数据中心网络的特性，我们可以设计一种协同的流量映射算法（§5.2），将流量映射到不同的交换机slots。该算法简化了线性系统，避免了图5中的极端情况。它还返回了普通情况下每个交换机、每个流包损失的唯一解。</p>
-<p>　　<strong>Formulation.</strong>（构想出，规划；确切地阐述；用公式表示）让 𝑛 是有损流的数量(𝑓1， - - ， 𝑓𝑛)， 𝑚是交换机的数量(𝑠1， - - ， 𝑠𝑚)。让$𝑘<em>𝑡$是交换机$𝑠</em>𝑡$的slots数量，损耗流被映射到其中(1≤𝑡≤𝑚)。例如，图5中有𝑛 = 2，𝑚 = 2，𝑘1 = 1，𝑘2 = 1。<font color="red">我们将全网丢包推理问题表述为一个线性系统</font>，如下。</p>
+<p>　　<strong>Formulation.</strong>（构想出，规划；确切地阐述；用公式表示）让 𝑛 是有损流的数量(𝑓1， - - ， 𝑓𝑛)， 𝑚是交换机的数量(𝑠1， - - ， 𝑠𝑚)。让kt是交换机st的slots数量，损耗流被映射到其中(1≤𝑡≤𝑚)。例如，图5中有𝑛 = 2，𝑚 = 2，𝑘1 = 1，𝑘2 = 1。<font color="red">我们将全网丢包推理问题表述为一个线性系统</font>，如下。</p>
 <ul>
-<li><p><em>Variables:</em>设$x<em>i$(1≤𝑖≤𝑚𝑛)为一个变量，量化每台交换机、每个流的丢包量(以丢包数为单位)，这样$𝑥_1$～$𝑥</em>𝑛$分别为$𝑓<em>1$～$𝑓</em>𝑛$在$𝑠<em>1$的丢包量，$x</em>{n+1}$～$x<em>{2n}$分别为$𝑓_1$～$𝑓</em>𝑛$在$𝑠_2$的丢包量，以此类推。例如，在图5中，我们定义了四个变量：$𝑥_1$和$𝑥_2$分别是$𝑓_1$和$𝑓_2$在$𝑠_1$中的数据包损失，而$𝑥_3$和$𝑥_4$分别是$𝑓_1$和$𝑠_2$中的数据包损失。</p>
+<li><p><em>Variables:</em> 设$x_i$(1≤𝑖≤𝑚𝑛)为一个变量，量化每台交换机、每个流的丢包量(以丢包数为单位)，这样$𝑥_1$～$𝑥_𝑛$分别为$𝑓_1$～$𝑓_𝑛$在$𝑠_1$的丢包量，$x_{n+1}$～$x_{2n}$分别为$𝑓_1$～$𝑓_𝑛$在$𝑠_2$的丢包量，以此类推。例如，在图5中，我们定义了四个变量：$𝑥_1$和$𝑥_2$分别是$𝑓_1$和$𝑓_2$在$𝑠_1$中的数据包损失，而$𝑥_3$和$𝑥_4$分别是$𝑓_1$和$𝑠_2$中的数据包损失。</p>
 </li>
-<li><p><em>Equations:</em>我们制定两组方程。首先，每个slot都会引出一个映射到slot本身的有损流的方程（即：总共有$\sum<em>{t=1}^{m} k</em>{t}$方程）。例如，在图5中，$𝑠<em>1$中的slot催生（induces）$𝑥_1$+$𝑥_2$=1，而$𝑠_2$中的slot催生$𝑥_3$+$𝑥_4$=1。其次，每个流量根据源端主机和目的端主机中的流量值之差，产生其总丢包量的方程（即总共𝑛个方程）。例如，在图5中，$𝑓_1$引起$𝑥_1$+$𝑥_3$=1，而$𝑓_2$引起$𝑥_2$+$𝑥_4$=1。设$𝑀</em>𝑡$(1≤𝑡≤𝑚)是一个$𝑘<em>𝑡$×𝑛 0-1矩阵，该矩阵指定了在交换机$s_t$共享slots的𝑛个损失流的映射。如果流$𝑓</em>𝑗$(1≤𝑗≤𝑛)遍历$𝑠<em>𝑡$，并映射到$𝑠</em>𝑡$中的slot 𝑖(1≤𝑖≤$𝑘<em>𝑡$)，$𝑀</em>𝑡(𝑖，𝑗)$则为一；否则为零。让 $I$ 是大小为 $𝑛$ 的单位矩阵（identity matrix），其中每一行表示沿 𝑚 个交换机的一个损耗流的丢包变量。我们将线性系统表示为$A \cdot \vec{x}=\vec{b}$(例如，见图5)，其中𝐴是一个$\left(\sum<em>{t=1}^{m} k</em>{t}+n\right) \times m n$矩阵，由下列公式给出：</p>
+<li><p><em>Equations:</em>我们制定两组方程。首先，每个slot都会引出一个映射到slot本身的有损流的方程（即：总共有$\sum_{t=1}^{m} k_{t}$方程）。例如，在图5中，$𝑠_1$中的slot催生（induces）$𝑥_1$+$𝑥_2$=1，而$𝑠_2$中的slot催生$𝑥_3$+$𝑥_4$=1。其次，每个流量根据源端主机和目的端主机中的流量值之差，产生其总丢包量的方程（即总共𝑛个方程）。例如，在图5中，$𝑓_1$引起$𝑥_1$+$𝑥_3$=1，而$𝑓_2$引起$𝑥_2$+$𝑥_4$=1。设$𝑀_𝑡$(1≤𝑡≤𝑚)是一个$𝑘_𝑡$×𝑛 0-1矩阵，该矩阵指定了在交换机$s_t$共享slots的𝑛个损失流的映射。如果流$𝑓_𝑗$(1≤𝑗≤𝑛)遍历$𝑠_𝑡$，并映射到$𝑠_𝑡$中的slot 𝑖(1≤𝑖≤$𝑘_𝑡$)，$𝑀_𝑡(𝑖，𝑗)$则为一；否则为零。让 $I$ 是大小为 $𝑛$ 的单位矩阵（identity matrix），其中每一行表示沿 𝑚 个交换机的一个损耗流的丢包变量。我们将线性系统表示为$A \cdot \vec{x}=\vec{b}$(例如，见图5)，其中𝐴是一个$\left(\sum_{t=1}^{m} k_{t}+n\right) \times m n$矩阵，由下列公式给出：</p>
+</li>
+</ul>
 <script type="math/tex; mode=display">
-A=\left[\begin{array}{cccc}M_{1} & 0 & \cdots & 0 \\0 & M_{2} & \cdots & 0 \\\vdots & \vdots & \ddots & \vdots \\0 & 0 & \cdots & M_{m} \\I & I & \cdots & I\end{array}\right],</script><p>$\vec{x}$是一个大小为𝑚𝑛的列向量，包含所有$𝑥<em>i$，而$\vec{𝑏}$是一个大小为$\sum</em>{t=1}^{m} k<em>{t}+n$的列向量，由𝑚个交换机中所有 slots（共$\sum</em>{t=1}^{k} 𝑘<em>𝑡$） 的包损失（共$\sum</em>{t=1}^{m}  𝑘_t$包）以及𝑛个流的总包损失组成。我们的目标是求解给定$\vec{A}$和$\vec{b}$之后的$\vec{x}$。</p>
-</li>
-<li><p><strong>Rank analysis.</strong>如果且仅当𝐴的秩等于变量数𝑚𝑛时，线性系统有唯一解。𝐴 的秩取决于 $𝑀<em>𝑡$ 和 $𝐼$。显然，$𝐼$的秩为$𝑛$。假设我们构造了一个大小为$(\sum</em>{t=1}^{m} k<em>t)×𝑛$的新矩阵𝑀，其中𝑀的行由每个$𝑀</em>𝑡$的所有行一起组成。让$𝑟$成为𝑀的秩。我们可以证明，𝐴的秩的紧上界（tight upper bound）是 𝑟(𝑚 -1) +𝑛 (附录)。因此，我们可以提出accountability的必要条件(即可以推断出确切的丢包量)。</p>
+A=\left[\begin{array}{cccc}M_{1} & 0 & \cdots & 0 \\0 & M_{2} & \cdots & 0 \\\vdots & \vdots & \ddots & \vdots \\0 & 0 & \cdots & M_{m} \\I & I & \cdots & I\end{array}\right],</script><p>$\vec{x}$是一个大小为𝑚𝑛的列向量，包含所有$𝑥_i$，而$\vec{𝑏}$是一个大小为$\sum_{t=1}^{m} k_{t}+n$的列向量，由𝑚个交换机中所有 slots（共$\sum_{t=1}^{k} 𝑘_𝑡$） 的包损失（共$\sum_{t=1}^{m}  𝑘_t$包）以及𝑛个流的总包损失组成。我们的目标是求解给定$\vec{A}$和$\vec{b}$之后的$\vec{x}$。</p>
+<ul>
+<li><p><strong>Rank analysis.</strong>如果且仅当𝐴的秩等于变量数𝑚𝑛时，线性系统有唯一解。𝐴 的秩取决于 $𝑀_𝑡$ 和 $𝐼$。显然，$𝐼$的秩为$𝑛$。假设我们构造了一个大小为$(\sum_{t=1}^{m} k_t)×𝑛$的新矩阵𝑀，其中𝑀的行由每个$𝑀_𝑡$的所有行一起组成。让$𝑟$成为𝑀的秩。我们可以证明，𝐴的秩的紧上界（tight upper bound）是 𝑟(𝑚 -1) +𝑛 (附录)。因此，我们可以提出accountability的必要条件(即可以推断出确切的丢包量)。</p>
 <script type="math/tex; mode=display">
-Accountability condition: 𝑟(𝑚 - 1) + 𝑛 = 𝑚𝑛.</script><p>如果𝑚=1，则accountability的条件始终成立；否则如果𝑚&gt;1，则只有当𝑟=𝑛时才成立。请注意，𝑀的每一行都代表一个映射到交换机中一个slot上的流。这就在accountability和映射到slots上（𝑀指定的不同交换机中的）的流之间建立了联系，从而促使我们设计一种流映射算法来返回满足accountability条件的𝑀。</p>
+  Accountability condition: 𝑟(𝑚 - 1) + 𝑛 = 𝑚𝑛.</script><p>  如果𝑚=1，则accountability的条件始终成立；否则如果𝑚&gt;1，则只有当𝑟=𝑛时才成立。请注意，𝑀的每一行都代表一个映射到交换机中一个slot上的流。这就在accountability和映射到slots上（𝑀指定的不同交换机中的）的流之间建立了联系，从而促使我们设计一种流映射算法来返回满足accountability条件的𝑀。</p>
 </li>
-<li><p><strong>Challenge.</strong>遗憾的是，accountability条件一般不成立。例如，在图5中，由𝑀1和𝑀2构成的矩阵𝑀，其秩为𝑟=1，但却有𝑛=2个流量。一般来说，秩 $r \leq \min \left{\sum<em>{t=1}^{m} k</em>{t}, n\right}$。如果映射的slots数（即$\sum_{t=1}^{m} k_t,n$ ）小于流量的数量（即𝑛 ），那么对于任何流量映射来说，不可避免地会出现 𝑟 &lt; 𝑛 。</p>
+<li><p><strong>Challenge.</strong>遗憾的是，accountability条件一般不成立。例如，在图5中，由𝑀1和𝑀2构成的矩阵𝑀，其秩为𝑟=1，但却有𝑛=2个流量。一般来说，秩 $r \leq \min \left\{\sum_{t=1}^{m} k_{t}, n\right\}$。如果映射的slots数（即$\sum_{t=1}^{m} k_t,n$ ）小于流量的数量（即𝑛 ），那么对于任何流量映射来说，不可避免地会出现 𝑟 &lt; 𝑛 。</p>
 </li>
 </ul>
 <h3 id="5-2-Collaborative-Flow-Mapping（协调流映射）"><a href="#5-2-Collaborative-Flow-Mapping（协调流映射）" class="headerlink" title="5.2 Collaborative Flow Mapping（协调流映射）"></a>5.2 Collaborative Flow Mapping（协调流映射）</h3><p>　　<strong>Observations.</strong>我们展示了我们如何利用数据中心网络的特性，使accountability条件在普通情况下成立。我们提出了两点意见，这些意见已经被最近关于生产数据中心的研究所证实[2，6，23，60，68，79]。</p>
@@ -383,12 +385,20 @@ Accountability condition: 𝑟(𝑚 - 1) + 𝑛 = 𝑚𝑛.</script><p>如果�
 <p>　　<em>(ii) Loss sparsity.</em>鉴于最近的拥塞控制机制[2]和故障缓解机制[23，68，79]极大地抑制了数据包丢失（packet losses），丢包（Packet drops ）在数据中心网络中分布稀疏。这种损耗稀疏性（loss sparsity）意味着数据包损耗很可能正好发生在本地区域内（within a local region）的一个交换机（例如，一小组机架或集群）。换句话说，对于仅在一个区域内遍历的所有本地损耗流，它们的丢包（packet losses）都归于一个交换机。因此，我们可以推断出这种局部流（local flows）的 $\vec{𝑥}$ 中的变量(回忆一下，我们可以根据accountability condition，在𝑚=1的情况下为这种局部流解出唯一的解)。这就进一步放宽了对𝐴的秩要求。</p>
 <p>　　<strong>Design.</strong>以上两个观察结果通过减少$\vec{𝑥}$中的变量数量，大大简化了线性系统。对于 $\vec{𝑥}$ 中的其余变量，我们的目标是通过流映射来构造一个具有最大秩𝑟的新矩阵𝑀，这样简化的线性系统可以返回一个具有高可能性（likelihood）的唯一解。然而，这个问题仍然是不简单的（non-trivial），因为有损流量是不可预知的，我们无法预先知道有损流量如何映射到不同的slots。这样的设计有两个好处。</p>
 <p>　　OmniMon受到Bloom filters [7]的启发，通过将流量映射到每个交换机中的 𝑑&gt;1 个slots来解决这个问题。首先，有损流映射的slots数增加，其期望值等于𝑛𝑑（附录）。其次，可能的流映射数量增加到$𝑂(𝐾^𝑑 $)，其中$𝐾$是一个交换机中可用slots的总数，这样两个有损流（lossy flows）被映射到同一个$𝑑$ slots（the same <em>𝑑</em> slots）的可能性就降低了。因此，随着映射slots(即𝐴的行)数量的增加和重叠流映射（overlapped flow mappings）(即线性依赖 列)数量的减少，𝐴的秩会增加。例如，可以避免图5中的极端情况。</p>
-<p>　　Omni Mon采用两阶段协作的方法来确保任何新的流被映射到不同的𝑑 slots集（a different set of <em>𝑑</em> slots）。在第一阶段，控制器生成所有$\left(\begin{array}{l}K \d\end{array}\right)$可能的流映射，并在其启动过程中为所有终端主机划分流映射，从而使每个终端主机收到一个不同的流映射列表。在第二阶段，源端主机在看到新的流量时，会选择一个未分配的流量映射。并在流钥匙跟踪（flowkey tracking）期间，在流终止时回收任何分配的流映射（§3.2）。请注意，如果有太多的活动流（active flows），源端主机可能会用完未分配的流映射，在这种情况下，我们为新流选择最近使用最少的流映射。</p>
+<p>　　Omni Mon采用两阶段协作的方法来确保任何新的流被映射到不同的𝑑 slots集（a different set of <em>𝑑</em> slots）。在第一阶段，控制器生成所有$\left(\begin{array}{l}K \\d\end{array}\right)$可能的流映射，并在其启动过程中为所有终端主机划分流映射，从而使每个终端主机收到一个不同的流映射列表。在第二阶段，源端主机在看到新的流量时，会选择一个未分配的流量映射。并在流钥匙跟踪（flowkey tracking）期间，在流终止时回收任何分配的流映射（§3.2）。请注意，如果有太多的活动流（active flows），源端主机可能会用完未分配的流映射，在这种情况下，我们为新流选择最近使用最少的流映射。</p>
 <p>　　<strong>Summary.</strong> OmniMon通过数据中心网络的特性来简化线性系统，以推断准确的数据包损失。我们将这些步骤总结如下。</p>
-<p>　　- <em>Step 1:</em>识别源端主机和目的端主机的流量值之差为非零的任何有损流量。<br>　　- <em>Step 2:</em>构造$M_t$（and hence ）A和$\vec{b}$。<br>　　- <em>Step 3:</em>细化$\vec{x}$中的变量。对于局部流量，如果流量不遍历交换机，我们将相应的变量设置为零。在损耗稀疏（ loss sparsity）的情况下，我们检查每个局部区域（通过机架或集群）。 如果一个区域正好有一个交换机有丢包现象，我们就找出这个区域的所有本地流量，并求出这些本地流量对应变量的唯一解。<br>　　- <em>Step 4:</em>解$A \cdot \vec{x}=\vec{b}$以求得剩余变量。</p>
+<ul>
+<li>Step 1:识别源端主机和目的端主机的流量值之差为非零的任何有损流量。</li>
+<li>Step 2:构造$M_t$（and hence ）A和$\vec{b}$。</li>
+<li>Step 3:细化$\vec{x}$中的变量。对于局部流量，如果流量不遍历交换机，我们将相应的变量设置为零。在损耗稀疏（ loss sparsity）的情况下，我们检查每个局部区域（通过机架或集群）。 如果一个区域正好有一个交换机有丢包现象，我们就找出这个区域的所有本地流量，并求出这些本地流量对应变量的唯一解。</li>
+<li><ul>
+<li>Step 4:解$A \cdot \vec{x}=\vec{b}$以求得剩余变量。</li>
+</ul>
+</li>
+</ul>
 <h2 id="6-DISCUSSION"><a href="#6-DISCUSSION" class="headerlink" title="6. DISCUSSION"></a>6. DISCUSSION</h2><p>　　我们讨论了OmniMon的一些实际部署问题。</p>
-<p>　　<strong>Scalability.</strong> 随着网络规模的扩大，OmniMon需要更多的资源（如交换机中的内存、终端主机和控制器中的CPU功率等）来实现完全的准确性。但是，其完全准确所需的资源使用量的增长速度远远低于网络规模的增长速度。<strong>对于终端主机来说</strong>，由于流量是独立的，当一个CPU核无法处理所有流量时，OmniMon可以在不同的CPU核中处理流量。与网络堆栈的处理开销相比，它的资源效率仍然高得多，因为它的哈希计算和值更新在商品CPU中产生的开销很低[49]。<strong>对于交换机来说</strong>，由于$K$个slots提供$\left(\begin{array}{c}K \d\end{array}\right)$流映射，当$𝑑&gt;1$时，少量的$𝐾$增量可以处理更多的流。即使当流的真实数量超过$\left(\begin{array}{c}K \d\end{array}\right)$（Exp#5 in §8），OmniMon仍然能保持其准确性。<strong>对于控制器，</strong>它是一个逻辑实体，可以支持多个物理服务器（§2.1）。此外，即使对于大量的终端主机（§4.2），它只转发有限的带外流量，并可以使具有多个CPU核[50,66]的线性系统加速求解。</p>
-<p>　　<strong>Parameterization.</strong> OmniMon允许简单的参数配置。对于终端主机，我们可以根据需求调整资源。对于交换机，我们可以为不同的epoch重复使用slots。我们需要配置被跟踪的最大epoch数和每个epoch的slots数。追踪的epochs数是根据epoch长度和可容忍的网络延迟得出的，这两点是可以配置的。例如，如果我们使用长度为100毫秒的四个epoch，我们可以跟踪网络延迟高达400毫秒的数据包；任何延迟超过400毫秒的数据包都不会被监控。每一epoch的slots数取决于被跟踪的最大流数（§5.2）。回顾$𝐾$个slots意味着$\left(\begin{array}{l}K \d\end{array}\right)$可能的流映射，如果我们将每个流映射到𝑑 slots。给定最大流数𝑛，我们选择𝐾和𝑑，这样$\left(\begin{array}{c}K \d\end{array}\right) \geq n$。我们现在选择𝑑=2（较大的𝑑意味着交换机中更多的计算开销）。</p>
+<p>　　<strong>Scalability.</strong> 随着网络规模的扩大，OmniMon需要更多的资源（如交换机中的内存、终端主机和控制器中的CPU功率等）来实现完全的准确性。但是，其完全准确所需的资源使用量的增长速度远远低于网络规模的增长速度。<strong>对于终端主机来说</strong>，由于流量是独立的，当一个CPU核无法处理所有流量时，OmniMon可以在不同的CPU核中处理流量。与网络堆栈的处理开销相比，它的资源效率仍然高得多，因为它的哈希计算和值更新在商品CPU中产生的开销很低[49]。<strong>对于交换机来说</strong>，由于$K$个slots提供$\left(\begin{array}{c}K \\d\end{array}\right)$流映射，当$𝑑&gt;1$时，少量的$𝐾$增量可以处理更多的流。即使当流的真实数量超过$\left(\begin{array}{c}K \\d\end{array}\right)$（Exp#5 in §8），OmniMon仍然能保持其准确性。<strong>对于控制器，</strong>它是一个逻辑实体，可以支持多个物理服务器（§2.1）。此外，即使对于大量的终端主机（§4.2），它只转发有限的带外流量，并可以使具有多个CPU核[50,66]的线性系统加速求解。</p>
+<p>　　<strong>Parameterization.</strong> OmniMon允许简单的参数配置。对于终端主机，我们可以根据需求调整资源。对于交换机，我们可以为不同的epoch重复使用slots。我们需要配置被跟踪的最大epoch数和每个epoch的slots数。追踪的epochs数是根据epoch长度和可容忍的网络延迟得出的，这两点是可以配置的。例如，如果我们使用长度为100毫秒的四个epoch，我们可以跟踪网络延迟高达400毫秒的数据包；任何延迟超过400毫秒的数据包都不会被监控。每一epoch的slots数取决于被跟踪的最大流数（§5.2）。回顾$𝐾$个slots意味着$\left(\begin{array}{l}K \\d\end{array}\right)$可能的流映射，如果我们将每个流映射到𝑑 slots。给定最大流数𝑛，我们选择𝐾和𝑑，这样$\left(\begin{array}{c}K \\d\end{array}\right) \geq n$。我们现在选择𝑑=2（较大的𝑑意味着交换机中更多的计算开销）。</p>
 <p>　　<strong>Generality.</strong>OmniMon支持数据包字段的各种组合作为流密钥定义，以及不同类型的流统计（如[35，40，46，71]中的344统计）。然而，<strong>由于OmniMon的工作粒度是以epoch为单位的</strong>，它不能对数据包时间戳进行细粒度的集体分析。相反，它现在提供粗粒度的时间戳测量。例如，它通过跟踪流发生的第一个和最后一个epoch，以epoch数估计流完成时间。</p>
 <p>　　<strong>Incremental deployment.</strong>OmniMon现在假定在终端主机和可编程交换机上进行全面部署。我们还可以在感兴趣的终端主机和交换机（如核心交换机）的子集上增量部署OmniMon，以进行部分测量（即只测量穿越部署设备的流量）。描述增量部署和完全准确之间的权衡是我们未来的工作。</p>
 <p>　　<strong>Failure handling.</strong>Omni Mon需要在测量过程中处理不同类型实体的故障。对于终端主机，OmniMon会丢弃任何失败的终端主机的交换槽（switch slots），因为这些槽（slots）的流量映射是由控制器分配和知道的（§5.2）。恢复终端主机信息不在我们的范围内，然而可以通过操作系统级的容错机制来实现[9，18]。对于交换机，OmniMon通过损耗推理（ loss inference）来定位交换机故障（附录中的Exp#8）。对于控制器，其容错性可以通过多个服务器实现（§2.1）。</p>
@@ -398,11 +408,19 @@ Accountability condition: 𝑟(𝑚 - 1) + 𝑛 = 𝑚𝑛.</script><p>如果�
 <p>　　<strong>Controller.</strong>我们分别用mTCP[31]和ZeroMQ[77]将控制器连接到每个终端主机和交换机。控制器通过多线程进行并行操作。它用特征库（eigen library）[19]求解线性系统(§5)。</p>
 <p>　　<strong>Query engine.</strong> 为了支持富于表现力的（expressive）网络遥测，我们实现了一个基于Sonata[24]的基本查询引擎。具体来说，查询引擎把Sonata中类似SQL的表达式应用到遥测任务上。然后调用Sonata的编译器将任务翻译成不同的运算符。它从运算符（ operators）中提取相关的流键（ flowkeys）和统计数据（statistics ）。最后，它为OmniMon生成一个特定的配置（ configuration），该配置仅监控提取的流键和统计数据。</p>
 <h2 id="8-EVALUATION"><a href="#8-EVALUATION" class="headerlink" title="8. EVALUATION"></a>8. EVALUATION</h2><p>　　我们进行测试平台实验，将OmniMon与11种最先进的遥测设计在各方面进行比较。我们总结了我们对OmniMon的发现：</p>
-<p>　　- 它比基于终端主机的遥测系统：Trumpet[49]实现了更高的吞吐量（Exp#1）。<br>　　- 它比四种sketch方案（其误差非零）[ SketchLearn29，FlowRadar38，UnivMon43，Elastic Sketch72]消耗更少的开关资源使用量，同时实现零误差（Exp#2）。<br>　　- 即使流量是$10^6$数量级，它也能在有限的时间内完成控制器的操作（Exp#3）。<br>　　- 与网络遥测的同步解决方案Speedlight[73]（Exp#4）相比，它所产生的交换机资源使用量更少，时间边界偏差更小。<br>　　- 在极端情况下，它推断出99.7%的数据包丢失（Exp#5）。<br>　　- 与SwitchPointer[67]相比，它消耗的资源使用量要少得多，同时实现了更好的可扩展性（scalability），即使当流的数量增加到$10^6$时也是如此（Exp#6）。<br>　　- 它支持11种异常检测应用，其中它产生的开销比Marple[52]和Sonata[24]要少，同时实现零错误（Exp#7）。</p>
+<ul>
+<li>它比基于终端主机的遥测系统：Trumpet[49]实现了更高的吞吐量（Exp#1）。</li>
+<li>它比四种sketch方案（其误差非零）[ SketchLearn29，FlowRadar38，UnivMon43，Elastic Sketch72]消耗更少的开关资源使用量，同时实现零误差（Exp#2）。</li>
+<li>即使流量是$10^6$数量级，它也能在有限的时间内完成控制器的操作（Exp#3）。</li>
+<li>与网络遥测的同步解决方案Speedlight[73]（Exp#4）相比，它所产生的交换机资源使用量更少，时间边界偏差更小。</li>
+<li>在极端情况下，它推断出99.7%的数据包丢失（Exp#5）。</li>
+<li>与SwitchPointer[67]相比，它消耗的资源使用量要少得多，同时实现了更好的可扩展性（scalability），即使当流的数量增加到$10^6$时也是如此（Exp#6）。</li>
+<li>它支持11种异常检测应用，其中它产生的开销比Marple[52]和Sonata[24]要少，同时实现零错误（Exp#7）。</li>
+</ul>
 <p>　　在附录中，我们通过模拟大规模部署进一步评估OmniMon。它在四种类型的数据包丢失中实现了完美的诊断，并优于另一个诊断系统007[4]（Exp#8）。它支持负载均衡算法的性能评估，并且比HashPipe[65]更准确地定位每条链路的顶级流量（top flows）（Exp#9）。最后，我们在Exp#2中展示提了交换机资源使用情况的明细，在Exp#7展示了每个应用的资源-精度权衡（resource-accuracy trade-off）。</p>
 <h3 id="8-1-Setup"><a href="#8-1-Setup" class="headerlink" title="8.1 Setup"></a>8.1 Setup</h3><p>　　<strong>Testbed.</strong>（试验台）我们在8台服务器和3台Barefoot Tofino交换机中部署了我们的OmniMon原型[70]。每台服务器都有两个12核2.2GHz的CPU，32GB内存和一个双端口40Gbps的网卡，而每台交换机有32个100Gb端口。我们在每台服务器中部署一台终端主机，并将控制器与一台终端主机服务器共同部署。我们部署两台交换机作为边缘交换机，每台交换机由四台服务器连接，其余交换机作为核心交换机，由两台边缘交换机连接。</p>
 <p>　　<strong>Workloads.</strong>（工作量）我们在CAIDA 2018[11]中选取了一个小时的追踪（ trace）。为了模拟数据中心流量的局部性，我们将跟踪（trace）中的IP地址映射到我们的终端主机，并生成一个工作负（workload），其中85%的流量是边缘局部的（ edge-local），正如[60]中所报告的那样。我们使用不同的epoch长度，使每个终端主机的活动流量（active flows）的范围都是$10^3$到$10^6$（比实地研究[2,60]中的报告多得多）。我们使用PktGen[58]在终端主机中生成跟踪工作负载（trace workloads）。为了消除磁盘I/O开销，每个终端主机将traces(修改了IP地址)加载到PktGen的内存缓冲区，并尽可能快地发出流量，以对我们的原型进行压力测试。</p>
-<p>　　<strong>Methodology.</strong>OmniMon对每个流进行九种类型的统计计数：数据包计数、字节计数、SYN计数、FIN/RST计数、SYN-ACK计数、ACK计数、40字节的数据包计数、带有特殊字符串的数据包数量（如’zorro’）以及每个流最新的epoch（packet counts, byte counts, SYN counts, FIN/RST counts, SYN-ACK counts, ACK counts, 40-byte packet counts, number of packets with special strings (e.g., ‘‘zorro’’), and the latest epoch of a flow.）。每台交换机部署四组slots。每组有3,072个slots，用于一个纪epoch，并在一个epoch结束时收回以重复利用。 我们将每个流程映射到𝑑=2个slots（§6）。因此，每个epoch有$\left(\begin{array}{c}3072 \2\end{array}\right) \approx 4.7 \times 10^{6}$个流量映射，足以容纳所有的活动流量。(注意，一个流量同时出现在源端主机和目的端主机中，所以假设8个端主机中每个端主机最多有$10^6$个活动流量，网络中最多有$4×10^6$个活动流量)。每张图显示了100次运行的平均结果，并省略了误差条（error bars），因为它们可以忽略不计。</p>
+<p>　　<strong>Methodology.</strong>OmniMon对每个流进行九种类型的统计计数：数据包计数、字节计数、SYN计数、FIN/RST计数、SYN-ACK计数、ACK计数、40字节的数据包计数、带有特殊字符串的数据包数量（如’zorro’）以及每个流最新的epoch（packet counts, byte counts, SYN counts, FIN/RST counts, SYN-ACK counts, ACK counts, 40-byte packet counts, number of packets with special strings (e.g., ‘‘zorro’’), and the latest epoch of a flow.）。每台交换机部署四组slots。每组有3,072个slots，用于一个纪epoch，并在一个epoch结束时收回以重复利用。 我们将每个流程映射到𝑑=2个slots（§6）。因此，每个epoch有$\left(\begin{array}{c}3072 \\2\end{array}\right) \approx 4.7 \times 10^{6}$个流量映射，足以容纳所有的活动流量。(注意，一个流量同时出现在源端主机和目的端主机中，所以假设8个端主机中每个端主机最多有$10^6$个活动流量，网络中最多有$4×10^6$个活动流量)。每张图显示了100次运行的平均结果，并省略了误差条（error bars），因为它们可以忽略不计。</p>
 <h3 id="8-2-Results"><a href="#8-2-Results" class="headerlink" title="8.2 Results"></a>8.2 Results</h3><p>　　<strong>(Exp#1) End-host overhead.</strong>我们首先通过比较OmniMon和Trumpet[49]（一种基于零错误的终端主机遥测系统）来评估终端主机的开销。需要注意的是，Trumpet只针对终端主机设计，而OmniMon也提供交换机端信息。开源的Trumpet原型（称为’’Trumpet-Full (TF)’’）实现了针对不同网络事件匹配的4096个 triggers 。我们还实现了一个简化的变体（称为’’Trumpet-Simple (TS)’’），该变体使用一个单一的触发器（ trigger ）来跟踪与OmniMon相同的九个流量统计数据，以便进行公平比较。图6(a)显示了OmniMon(OM)、两种Trumpet变体的吞吐量，以及在单个CPU核上使用PktGen生成数据包的情况。TF只实现了6.5Mpps，因为它对4,096个触发器（ triggers）执行匹配。TS比TF快，但由于事件匹配开销，比OmniMon慢。与 PktGen 相比，OmniMon 的吞吐量仅有 5.4% 的轻微下降（$10^6$ 个流量）。图6(b)显示了OmniMon中每个数据包处理的CPU周期数的明细。吞吐量的下降主要来自于每个数据包的哈希查找。</p>
 <p>　　<strong>(Exp#2) Switch resource usage.</strong>我们将OmniMon在交换机资源使用方面与四种sketch解决方案进行比较。FlowRadar（FR）[38]、UnivMon（UM）[43]、ElasticSketch（ES）[72]和SketchLearn（SL）[29]。所有sketch解决方案都使用紧凑的数据结构进行近似测量，以适应有限的交换机内存。我们根据他们在P4中发布的设计，在我们的交换机中重新构建它们来测量每流数据包计数。为了进行公平的比较，我们建立了一个简化的OmniMon（OS），它只测量每个流量的数据包计数。我们将所有解决方案与我们的完整OmniMon版本(OF)进行比较，该版本跟踪9个流量统计。</p>
 <p>　　图7描述了交换机资源的使用情况，在内存使用情况、阶段（stages）和动作（actions）的数量（衡量计算资源），以及包头向量（PHV）大小（衡量跨阶段（stages）传递的消息大小）。FR和UM都维护了额外的数据结构(如bloom过滤器和堆heaps)来进行流密钥（flowkey）恢复，因此会产生很高的内存使用率(图7(a))。此外，sketch解决方案还执行多个哈希计算，触发（trigger）许多阶段（stages）和动作（actions）（图7（b）和7（c））。ES和SL更新计数器的不同部分，并产生很大的PHV（图7(d)）。对于OmniMon来说，OS是资源高效的，因为它的协作设计只在交换机中施加值更新；即使对于测量更多统计数据的OF来说，它的交换机资源使用量也与sketch解决方案相当。请注意，OmniMon实现了完全的精确性，但sketch解决方案却不能。</p>
@@ -410,9 +428,9 @@ Accountability condition: 𝑟(𝑚 - 1) + 𝑛 = 𝑚𝑛.</script><p>如果�
 <p>　　<strong>(Exp#4) Consistency.</strong>我们通过比较OmniMon和开放源码的Speedlight（SPL）原型[73]（一种网络遥测的同步解决方案）来评估epoch同步。我们将用P4 BMv2[55]编写的SPL原型改编到Tofino交换机上。图9(a)显示了交换机资源的使用情况，与完整的OmniMon版本的资源使用情况进行了标准化。SPL实现了Chandy-Lamport算法[13]，开销很大，而OmniMon由于其外延同步是由终端主机和控制器完成的，所以资源效率更高。</p>
 <p>　　我们研究当本地时钟松散同步（loosely synchronized）时，每个epoch边界的时间偏差（time deviations）。我们在每台服务器中部署了多个（最多1,024个）终端主机实例。我们将终端主机的本地时钟调整为相差1毫秒。图9(b)显示，由于SPL只依靠带内数据包进行同步，因此SPL受到很大的偏差(几乎到了时钟差1毫秒)。如果流量没有跨越所有的终端主机，一些终端主机仍处于旧的epoch。OmniMon将偏差限制在60 𝜇s，即使是1,024个终端主机，因为它利用控制器来约束偏差，并使用mTCP来绕过内核空间（§7）。</p>
 <p>　　我们在straggler case情况下进一步评估了epoch同步精度。我们配置一个straggler终端主机，其本地时钟与其他主机的时钟相差范围是1毫秒到1秒。图9(c)测量了该杂散型（straggler）终端主机中每流数据包计数的平均相对误差。对于SPL，当差值为100毫秒和1秒时，误差分别增加到26%和33%，因为epoch边界偏差（epoch boundary deviation）将许多数据包映射到一个错误的epoch。OmniMon保留了零误差，因为它将所有终端主机和交换机的每个数据包都包含在相同的epoch中。OmniMon保留了零错误，因为它在所有终端主机和交换机的同一时间段内包含了每个数据包。图9(d)测量了流量完成时间的平均相对误差。我们专注于超过1 s的长寿命流量（这通常意味着重要的网络事件[14]）。<strong>虽然OmniMon以epoch为单位测量粗粒度的时间戳（§6）</strong>，但其误差只有0.7%，因为它约束了epoch边界偏差。对于SPL来说，当时钟偏差为1 s时，误差在22%以上。</p>
-<p>　　<strong>(Exp#5) Accountability.</strong>我们的默认设置提供了足够的slots来为每个流分配唯一的流映射。在这里，我们考虑一种极端的情况，其中每个交换机使用512个slots（即$\left(\begin{array}{c}512 \2\end{array}\right) \approx$130K流映射）。我们将epoch长度设置为两分钟，以使一个当前epoch平均有380K个并发流。我们还将丢包率设置为0.5％。我们将OmniMon与两个变体进行比较：（i）“ Oracle”，它预先知道所有有损流，并将最小slot重叠的有损流量映射为具有最大矩阵等级；（ii）“Random”，它会为每个流程随机选择一个slot。图10（a）显示了这三个方案（一个原型，两个变形）的每次调用的CPU周期数。OmniMon和Random消耗少于一个CPU周期，而Oracle要求每个数据包超过300个周期才能获得最大等级映射。</p>
+<p>　　<strong>(Exp#5) Accountability.</strong>我们的默认设置提供了足够的slots来为每个流分配唯一的流映射。在这里，我们考虑一种极端的情况，其中每个交换机使用512个slots（即$\left(\begin{array}{c}512 \\2\end{array}\right) \approx$130K流映射）。我们将epoch长度设置为两分钟，以使一个当前epoch平均有380K个并发流。我们还将丢包率设置为0.5％。我们将OmniMon与两个变体进行比较：（i）“ Oracle”，它预先知道所有有损流，并将最小slot重叠的有损流量映射为具有最大矩阵等级；（ii）“Random”，它会为每个流程随机选择一个slot。图10（a）显示了这三个方案（一个原型，两个变形）的每次调用的CPU周期数。OmniMon和Random消耗少于一个CPU周期，而Oracle要求每个数据包超过300个周期才能获得最大等级映射。</p>
 <p>　　我们还评估了可以通过<strong>§5.2中的四个步骤求解的每个交换机</strong>、每个流包丢失变量的分数。对于这三种方案中的每一种，我们使用步骤1和2建立线性系统，并考虑两种变体。(i)’’w/o DCN’’，其中我们跳过步骤3，直接求解线性系统；(ii)’’w/ DCN’’，其中我们执行步骤3，简化了具有数据中心网络特性的线性系统。图10(b)显示，如果不执行Step 3，所有方案只能推断出50%左右的变量，因为损耗流的数量(即𝑛)超过了可用slots的总数(即每个交换机512个)。通过对步骤3的简化，Oracle推断出所有变量，而OmniMon推断出99.7%的变量。在这里，OmniMon不能实现100%的推断，因为我们考虑的是一种极端情况，然而在实际情况下，完全的准确性是可以实现的（附录中的Exp#8）。</p>
-<p>　　<strong>(Exp#6) Scalability.</strong> 我们将OmniMon与开源的SwitchPointer原型[67] (SP)在可扩展性方面进行比较。我们将用P4 BMv2编写的SP原型改编到Tofino交换机上。图11(a)显示了与OmniMon相同的交换机资源使用情况。SP专注于网络内的可见性，而资源与精度的权衡不是它的重点。它在完美散列的情况下实现了零错误，但对于复杂的计算，会产生较高的交换机资源开销。请注意，完美散列（ perfect hashing）需要先验地获取所有可能的流密钥来设计完美的散列函数。这对于 IP 地址是可行的，但对于 5 元组（ 5-tuples）（最多$2^104$个流量）则不可行。图11(b)比较了零错误保证所需的内存使用情况。SP的内存使用量随着流密钥的数量线性增长，因为每个slot都与一个流相关联，而OmniMon的内存使用量增长速度要慢得多，因为𝐾槽位可以容纳$\left(\begin{array}{l}K \d\end{array}\right)$流（§5.2）。</p>
+<p>　　<strong>(Exp#6) Scalability.</strong> 我们将OmniMon与开源的SwitchPointer原型[67] (SP)在可扩展性方面进行比较。我们将用P4 BMv2编写的SP原型改编到Tofino交换机上。图11(a)显示了与OmniMon相同的交换机资源使用情况。SP专注于网络内的可见性，而资源与精度的权衡不是它的重点。它在完美散列的情况下实现了零错误，但对于复杂的计算，会产生较高的交换机资源开销。请注意，完美散列（ perfect hashing）需要先验地获取所有可能的流密钥来设计完美的散列函数。这对于 IP 地址是可行的，但对于 5 元组（ 5-tuples）（最多$2^104$个流量）则不可行。图11(b)比较了零错误保证所需的内存使用情况。SP的内存使用量随着流密钥的数量线性增长，因为每个slot都与一个流相关联，而OmniMon的内存使用量增长速度要慢得多，因为𝐾槽位可以容纳$\left(\begin{array}{l}K \\d\end{array}\right)$流（§5.2）。</p>
 <p>　　<strong>(Exp#7) End-to-end performance comparison.</strong>我们将OmniMon与Sonata[24]和Marple[52]的交换机控制器架构进行比较。<strong>我们的端到端性能比较针对Sonata[24]报告的11个异常检测应用。</strong>比较内容包括三个方面：(i)每台交换机资源使用量；(ii)每台交换机发送到控制器的流量；(iii)每个应用的检测精度。由于Sonata和Marple在设计中不涉及终端主机开销，因此我们不比较终端主机开销。如Exp#1和Exp#3所示，OmniMon的终端主机开销有限。</p>
 <p>　　OmniMon跟踪九种流量统计以支持11种应用。对于Sonata，如在§2.2中，我们同时考虑’’Sonata-FA（S-FA）’’ (with full accuracy)和’’Sonata-AD (S-AD)’’ (with accuracy drop)，其中每个交换机端操作符都配置了$2^{16}$计数器，就像其开源原型一样。对于Marple，我们实现了它的键值缓存，并删除旧键来处理哈希碰撞。我们和Marple[52]一样配置了$2^{16}$个缓存slots。对于OmniMon，我们采用了包括所有9个统计数据的完整配置（’’OM-F’’）。我们还采用了基于Sonata的查询引擎(§7)来为每个应用生成配置(‘’OM-Q’’)。我们在每个epoch设置了$10^5$个流量。由于Sonata、Marple和OM-Q各自部署了每个应用，我们对11个应用的结果进行平均。(每个应用的结果见附录)。</p>
 <p>　　图12(a)比较了每个交换机的资源使用情况，与OM-F的资源使用情况进行了标准化。Sonata-AD牺牲了准确性，消耗的内存、阶段（stages）和动作（actions）最少。Sonata-FA和Marple需要更多的资源用于流键跟踪和缓存驱逐（flowkey tracking and cache eviction）。OM-F由于其集体分析（§3.2），在跟踪所有9个统计数据的同时，交换机内存使用量比Sonata-FA和Marple都少。它对其他三类资源的使用量与Sonata-FA和Marple中的单个应用部署相当，因为它只在交换机中执行（简单的）值更新操作。有了查询引擎，OM-Q的资源使用量进一步下降。</p>
@@ -453,7 +471,10 @@ Accountability condition: 𝑟(𝑚 - 1) + 𝑛 = 𝑚𝑛.</script><p>如果�
     <a href="/2021/01/07/paper001-OpenSketch/" rel="prev" title="paper001:OpenSketch">
       <i class="fa fa-chevron-left"></i> paper001:OpenSketch
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/19/%E9%9A%8F%E7%AC%94%E2%80%94%E2%80%942021/" rel="next" title="随笔——2021">
+      随笔——2021 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -529,20 +550,20 @@ Accountability condition: 𝑟(𝑚 - 1) + 𝑛 = 𝑚𝑛.</script><p>如果�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -590,13 +611,13 @@ Accountability condition: 𝑟(𝑚 - 1) + 𝑛 = 𝑚𝑛.</script><p>如果�
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">118k</span>
+    <span title="站点总字数">119k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:47</span>
+    <span title="站点阅读时长">1:48</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

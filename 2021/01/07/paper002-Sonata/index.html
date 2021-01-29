@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="《Sonata: Query-Driven Streaming Network Telemetry》2018.08 SIGCOMM Sonata搭建步骤">
+  <meta name="description" content="《Sonata: Query-Driven Streaming Network Telemetry》">
 <meta property="og:type" content="article">
 <meta property="og:title" content="paper002-Sonata">
 <meta property="og:url" content="http://yoursite.com/2021/01/07/paper002-Sonata/index.html">
 <meta property="og:site_name" content="不忘初心">
-<meta property="og:description" content="《Sonata: Query-Driven Streaming Network Telemetry》2018.08 SIGCOMM Sonata搭建步骤">
+<meta property="og:description" content="《Sonata: Query-Driven Streaming Network Telemetry》">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-01-07T09:04:11.000Z">
-<meta property="article:modified_time" content="2021-01-12T12:34:45.538Z">
+<meta property="article:modified_time" content="2021-01-25T05:48:39.081Z">
 <meta property="article:author" content="你的名字">
 <meta property="article:tag" content="网络遥测">
 <meta name="twitter:card" content="summary">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-12 20:34:45" itemprop="dateModified" datetime="2021-01-12T20:34:45+08:00">2021-01-12</time>
+                <time title="修改时间：2021-01-25 13:48:39" itemprop="dateModified" datetime="2021-01-25T13:48:39+08:00">2021-01-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -264,7 +264,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>9.6k</span>
+              <span>9.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -283,11 +283,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>《Sonata: Query-Driven Streaming Network Telemetry》2018.08 SIGCOMM</p>
-<p>Sonata搭建步骤</p>
+        <p>《Sonata: Query-Driven Streaming Network Telemetry》</p>
 <a id="more"></a>
-
-<ol>
+<p>SIGCOMM ‘18</p>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>　　现有遥测系统可以实时收集和分析测量数据，但存在两个普遍问题：（1）仅支持单一遥测任务；（2）处理和存储开销随流量及查询量增加而增大。</p>
+<p>学术界的研究人员也关注到了上面的问题，Arpit Gupta等人针对遥测提供了一个声明式接口，可以满足11种遥测任务的查询需求[7]。这11种遥测任务包括：TCP新建连接查询、Slowloris DOS攻击查询、Zorro Attacks查询、SSH暴力破解攻击查询、Superspreader、端口扫描查询、DDoS攻击查询、TCP SYN Flood攻击查询、TCP Incomplete Flows查询、DNS Tunneling检测查询、DNS反向攻击查询。</p>
+<h2 id="Sonata搭建步骤"><a href="#Sonata搭建步骤" class="headerlink" title="Sonata搭建步骤"></a>Sonata搭建步骤</h2><ol>
 <li><p>软件下载和安装</p>
 <p>参考教程：</p>
 <p><a href="https://www.cnblogs.com/wanghui-garcia/p/10139258.html" target="_blank" rel="noopener">virtualbox+vagrant学习-1-环境安装及vagrantfile的简单配置-Mac系统</a></p>
@@ -299,7 +301,6 @@
 </li>
 <li><p>在SONATA-DEV目录下（vagrantfile所在目录）打开git，运行vagrant ssh出现：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">yuan@DESKTOP-9IE8SJC MINGW64 &#x2F;f&#x2F;rj&#x2F;sonatagit2020_12_13&#x2F;SONATA-DEV (tutorial)</span><br><span class="line">$ vagrant ssh</span><br><span class="line">Welcome to Ubuntu 14.04.6 LTS (GNU&#x2F;Linux 3.13.0-170-generic x86_64)</span><br><span class="line"></span><br><span class="line"> * Documentation:  https:&#x2F;&#x2F;help.ubuntu.com&#x2F;</span><br><span class="line"></span><br><span class="line">  System information as of Sun Dec 13 09:31:01 UTC 2020</span><br><span class="line"></span><br><span class="line">  System load:  0.18               Processes:           90</span><br><span class="line">  Usage of &#x2F;:   16.8% of 39.34GB   Users logged in:     0</span><br><span class="line">  Memory usage: 10%                IP address for eth0: 10.0.2.15</span><br><span class="line">  Swap usage:   0%</span><br><span class="line"></span><br><span class="line">  Graph this data and manage this system at:</span><br><span class="line">    https:&#x2F;&#x2F;landscape.canonical.com&#x2F;</span><br><span class="line"></span><br><span class="line">New release &#39;16.04.7 LTS&#39; available.</span><br><span class="line">Run &#39;do-release-upgrade&#39; to upgrade to it.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Last login: Sun Dec 13 09:31:01 2020 from 10.0.2.2</span><br><span class="line">vagrant@vighata:~$</span><br></pre></td></tr></table></figure>
-
 <p>到此为止，Windows环境下虚拟机远程登陆配置成功（sonata及其相关配置文件在配置好的虚拟机中：vagrant/目录下；该目录下的dev是共享文件夹）；</p>
 </li>
 <li><p>sonata使用：<a href="https://github.com/Sonata-Princeton/SONATA-DEV/tree/tutorial/sonata/tutorials/Tutorial-1" target="_blank" rel="noopener">教程1</a></p>
@@ -307,31 +308,27 @@
 <p><strong>错误</strong>：<code>ImportError: No module named mysql.connector</code></p>
 <p><strong>解决方案</strong>：<a href="https://blog.csdn.net/weixin_30724853/article/details/97413494" target="_blank" rel="noopener">ImportError: No module named mysql.connector</a>）在<code>vagrant@vighata:</code>后面输入：<code>pip install mysql-connector-python-rf==2.1.3</code>；</p>
 <p><strong>备注</strong>：定位到` File “/home/vagrant/dev/sonata/dataplane_driver/p4/emitter/emitter.py”, line 7, in <module></module></p>
-<pre><code>import mysql.connector`初步推测该错误原因和python的版本以及python包mysql-connector有关；</code></pre></li>
+<pre><code>import mysql.connector`初步推测该错误原因和python的版本以及python包mysql-connector有关；
+</code></pre></li>
 <li><p>此时再次执行<code>sudo $SPARK_HOME/bin/spark-submit sonata/examples/newly_opened_connections/test_app.py</code>出现<code>system ready</code>表示sonata成功启动（应该是sonata启动过程中的相应配置，需要读一下，所以复制下来了，该终端运行结束的方法在本步骤的备注里）：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">vagrant@vighata:~&#x2F;dev$ sudo $SPARK_HOME&#x2F;bin&#x2F;spark-submit sonata&#x2F;examples&#x2F;newly_opened_connections&#x2F;test_app.py</span><br><span class="line">*********************************************************************</span><br><span class="line">*                   Receiving User Queries                          *</span><br><span class="line">*********************************************************************</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">*********************************************************************</span><br><span class="line">*                   Generating Query Plan                           *</span><br><span class="line">*********************************************************************</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2020-12-13 10:18:40,343 - P4Target - INFO - init</span><br><span class="line">2020-12-13 10:18:40,343 - P4DataPlane - INFO - init</span><br><span class="line">Using Spark&#39;s default log4j profile: org&#x2F;apache&#x2F;spark&#x2F;log4j-defaults.properties</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:40 INFO SparkContext: Running Spark version 1.6.1</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:40 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:40 WARN Utils: Your hostname, vighata resolves to a loopback address: 127.0.1.1; using 10.0.2.15 instead (on interface eth0)</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:40 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:40 INFO SecurityManager: Changing view acls to: root</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:40 INFO SecurityManager: Changing modify acls to: root</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:40 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: Set(root); users with modify permissions: Set(root)</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:41 INFO Utils: Successfully started service &#39;sparkDriver&#39; on port 47073.</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:41 INFO Slf4jLogger: Slf4jLogger started</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:41 INFO Remoting: Starting remoting</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:41 INFO Remoting: Remoting started; listening on addresses :[akka.tcp:&#x2F;&#x2F;sparkDriverActorSystem@10.0.2.15:54932]</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:41 INFO Utils: Successfully started service &#39;sparkDriverActorSystem&#39; on port 54932.</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:41 INFO SparkEnv: Registering MapOutputTracker</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:41 INFO SparkEnv: Registering BlockManagerMaster</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:41 INFO DiskBlockManager: Created local directory at &#x2F;tmp&#x2F;blockmgr-b8b9310b-e6f9-41d8-85ec-a5e4a021eea9</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:41 INFO MemoryStore: MemoryStore started with capacity 511.1 MB</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:41 INFO SparkEnv: Registering OutputCommitCoordinator</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:42 INFO Utils: Successfully started service &#39;SparkUI&#39; on port 4040.</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:42 INFO SparkUI: Started SparkUI at http:&#x2F;&#x2F;10.0.2.15:4040</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:42 INFO Utils: Copying &#x2F;home&#x2F;vagrant&#x2F;dev&#x2F;sonata&#x2F;examples&#x2F;newly_opened_connections&#x2F;test_app.py to &#x2F;tmp&#x2F;spark-098d43ad-67c4-4a9d-81d2-ef3b54c13593&#x2F;userFiles-146cb70a-708c-45f9-9e47-afa2a299ecea&#x2F;test_app.py</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:42 INFO SparkContext: Added file file:&#x2F;home&#x2F;vagrant&#x2F;dev&#x2F;sonata&#x2F;examples&#x2F;newly_opened_connections&#x2F;test_app.py at file:&#x2F;home&#x2F;vagrant&#x2F;dev&#x2F;sonata&#x2F;examples&#x2F;newly_opened_connections&#x2F;test_app.py with timestamp 1607854722257</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:42 INFO Executor: Starting executor ID driver on host localhost</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:42 INFO Utils: Successfully started service &#39;org.apache.spark.network.netty.NettyBlockTransferService&#39; on port 53540.</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:42 INFO NettyBlockTransferService: Server created on 53540</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:42 INFO BlockManagerMaster: Trying to register BlockManager</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:42 INFO BlockManagerMasterEndpoint: Registering block manager localhost:53540 with 511.1 MB RAM, BlockManagerId(driver, localhost, 53540)</span><br><span class="line">20&#x2F;12&#x2F;13 10:18:42 INFO BlockManagerMaster: Registered BlockManager</span><br><span class="line">2020-12-13 10:18:43,372 - P4Target - INFO - run</span><br><span class="line">2020-12-13 10:18:43,372 - P4Target - INFO - init P4 application object</span><br><span class="line">2020-12-13 10:18:43,372 - P4Application - INFO - init</span><br><span class="line">2020-12-13 10:18:43,372 - P4Application - DEBUG - create query pipeline for qid: 10024</span><br><span class="line">2020-12-13 10:18:43,373 - P4Application - DEBUG - create query pipeline for qid: 10032</span><br><span class="line">2020-12-13 10:18:43,374 - P4Target - INFO - generate p4 code and commands</span><br><span class="line">2020-12-13 10:18:43,377 - P4Target - INFO - compile p4 code to json</span><br><span class="line">2020-12-13 10:18:43,377 - P4DataPlane - INFO - compile p4 to json</span><br><span class="line">2020-12-13 10:18:43,734 - P4Target - INFO - initialize the dataplane with the json configuration</span><br><span class="line">2020-12-13 10:18:43,735 - P4DataPlane - INFO - initialize</span><br><span class="line">2020-12-13 10:18:43,735 - P4DataPlane - INFO - create interfaces</span><br><span class="line">*********************************************************************</span><br><span class="line">*                   Updating data-plane driver                       *</span><br><span class="line">*********************************************************************</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">*********************************************************************</span><br><span class="line">*                   Updating data-plane driver                       *</span><br><span class="line">*********************************************************************</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">*********************************************************************</span><br><span class="line">*                   Updating Streaming Driver                       *</span><br><span class="line">*********************************************************************</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Calling target program-options parser</span><br><span class="line">Adding interface m-veth-1 as port 11</span><br><span class="line">Adding interface m-veth-2 as port 12</span><br><span class="line">Adding interface m-veth-3 as port 13</span><br><span class="line">For 10024 stream processor sending  []  at time 7.76877212524</span><br><span class="line">For 10032 stream processor sending  []  at time 7.79664301872</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&#x2F;home&#x2F;vagrant&#x2F;bmv2&#x2F;targets&#x2F;simple_switch&#x2F;sswitch_CLI.py&quot;, line 22, in &lt;module&gt;</span><br><span class="line">    import runtime_CLI</span><br><span class="line">  File &quot;&#x2F;home&#x2F;vagrant&#x2F;bmv2&#x2F;tools&#x2F;runtime_CLI.py&quot;, line 1887</span><br><span class="line">    print(&quot;  -&gt; (L1h&#x3D;&#123;&#125;, rid&#x3D;&#123;&#125;)&quot;.format(L1h, rid), end&#x3D;&#39; &#39;)</span><br><span class="line">                                                       ^</span><br><span class="line">SyntaxError: invalid syntax</span><br><span class="line">Command &#39;[&#39;&#x2F;home&#x2F;vagrant&#x2F;bmv2&#x2F;targets&#x2F;simple_switch&#x2F;sswitch_CLI&#39;, &#39;&#x2F;home&#x2F;vagrant&#x2F;dev&#x2F;sonata&#x2F;examples&#x2F;newly_opened_connections&#x2F;generated_src&#x2F;compiled.json&#39;, &#39;22222&#39;]&#39; returned non-zero exit status 1</span><br><span class="line">Using Thrift port 22222</span><br><span class="line"></span><br><span class="line">2020-12-13 10:18:49,614 - P4Target - INFO - start the emitter</span><br><span class="line">Emitter Started</span><br><span class="line">Waiting for socket</span><br><span class="line">*********************************************************************</span><br><span class="line">*                           System Ready                            *</span><br><span class="line">*********************************************************************</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Now start sniffing the packets from switch</span><br><span class="line">Interface confirming:  out-veth-2</span><br><span class="line">For 10024 stream processor sending  []  at time 11.6746091843</span><br><span class="line">For 10032 stream processor sending  []  at time 11.6951150894</span><br><span class="line">For 10024 stream processor sending  []  at time 15.6822590828</span><br><span class="line">For 10032 stream processor sending  []  at time 15.6919710636</span><br></pre></td></tr></table></figure>
-
 <p><strong>备注</strong>：终端2发送完特定流量后自动结束，结束后输入下述命令，则终端1也会结束;</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~&#x2F;dev</span><br><span class="line">$ sudo .&#x2F;cleanup.sh</span><br><span class="line">&#x2F;&#x2F;终端1会显示：</span><br><span class="line">Killed</span><br><span class="line">vagrant@vighata:~&#x2F;dev$</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>步骤3中运行：<code>sudo ./cleanup.sh</code>出现错误及解决办法</p>
 <p><strong>错误</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vagrant@vighata:~&#x2F;dev$ sudo .&#x2F;cleanup.sh</span><br><span class="line">   sudo: unable to execute .&#x2F;cleanup.sh: No such file or directory</span><br></pre></td></tr></table></figure>
-
-<p><strong>解决办法</strong>：<a href="https://blog.csdn.net/fireblue1990/article/details/74275843?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromBaidu-1.control&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromBaidu-1.control" target="_blank" rel="noopener">Linux运行shell脚本提示No such file or directory错误的解决办法</a></p>
+<p><strong>解决办法</strong>：<a href="https://blog.csdn.net/fireblue1990/article/details/74275843?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromBaidu-1.control&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromBaidu-1.control" target="_blank" rel="noopener">Linux运行shell脚本提示No such file or directory错误的解决办法</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd ~&#x2F;dev</span><br><span class="line">sudo apt-get install vim&#x2F;&#x2F;暂时不清楚这一步用不用做</span><br><span class="line">vi cleanup.sh</span><br><span class="line">:set ff &#x2F;&#x2F;打开之后不要按任何键，直接输入此命令</span><br><span class="line">回车，显示fileformat&#x3D;dos</span><br><span class="line">:set ff&#x3D;unix &#x2F;&#x2F;fileformat&#x3D;dos在输入此命令时会自动清空</span><br><span class="line">保存退出: </span><br><span class="line">:wq</span><br></pre></td></tr></table></figure>
-
 <p><strong>备注</strong>：好好学一下Linux的Vim吧。</p>
 </li>
 <li><p><strong>错误</strong>：强制从VitualBox中关闭虚拟机，导致下次运行：<code>vagrant ssh</code>时无反映。（解决耗时：2晚上+一上午，重装数次）</p>
 <p><strong>解决办法</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vagrant destroy   # 销毁当前虚拟机</span><br><span class="line">vagrant up        # 启动虚拟机</span><br></pre></td></tr></table></figure>
-
 <p><strong>备注</strong>：</p>
 <p>1.学习一下VitualBox和vagrant以及Xming、Putty的基本功能、命令；</p>
-<p>2.操作完成之后要关闭虚拟机<span style="color:red;">必须</span>使用命令：<code>vagrant suspend</code>，不要在VitualBox中操作；vagrant + virtualBox模式: windows开发 - 文件本地共享 – 直接访问虚拟机的方式；(<a href="https://www.jianshu.com/p/db5dfe622d2f" target="_blank" rel="noopener">vagrant相关命令</a>)；</p>
+<p>2.操作完成之后要关闭虚拟机<span style="color:red;">必须</span>使用命令：<code>vagrant suspend</code>，不要在VitualBox中操作；vagrant + virtualBox模式: windows开发 - 文件本地共享 — 直接访问虚拟机的方式；(<a href="https://www.jianshu.com/p/db5dfe622d2f" target="_blank" rel="noopener">vagrant相关命令</a>)；</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vagrant up （启动虚拟机）</span><br><span class="line">vagrant halt （关闭虚拟机——对应就是关机）</span><br><span class="line">vagrant suspend （暂停虚拟机——只是暂停，虚拟机内存等信息将以状态文件的方式保存在本地，可以执行恢复操作后继续使用）</span><br><span class="line">vagrant resume （恢复虚拟机—— 与前面的暂停相对应）</span><br><span class="line">vagrant destroy （删除虚拟机，删除后在当前虚拟机所做进行的除开Vagrantfile中的配置都不会保留）</span><br><span class="line">vagrant destroy 命令实际上并不删除下载的 box 文件。可以使用 vagrant box remove 命令彻底删除 box 文件。</span><br></pre></td></tr></table></figure>
-
 <p>3.虚拟机的位置：C:\Users\yuan\VirtualBox VMs\SONATA-DEV_default_1607914797886_56231</p>
 <p>4.在VitualBox中点击：显示(绿箭头)，等待片刻（5min），会出现登录界面；账号，密码均是：<code>vagrant</code>；登录之后会出现：<code>vagrant@vighata:~$</code>这应该就是进入虚拟机的终端里了；（！！！<strong>除非你想毁掉虚拟机重新配置，否则不要在VitualBox中做任何操作</strong>！！！）</p>
 <p>5.<code>vagrant halt</code>命令关机之后在VitualBox中点击：显示，无法启动。具体原因不清楚。</p>
@@ -339,7 +336,7 @@
 <p>8.上述问题均可通过销毁再重新启动的方式解决；</p>
 <p>9.初步推测上述问题和SSH有关；</p>
 </li>
-<li><p><a href="https://blog.csdn.net/ty_hf/article/details/78314583?utm_medium=distribute.pc_relevant.none-task-blog-title-7&spm=1001.2101.3001.4242" target="_blank" rel="noopener">vagrant-安装教程及常见问题</a></p>
+<li><p><a href="https://blog.csdn.net/ty_hf/article/details/78314583?utm_medium=distribute.pc_relevant.none-task-blog-title-7&amp;spm=1001.2101.3001.4242" target="_blank" rel="noopener">vagrant-安装教程及常见问题</a></p>
 </li>
 </ol>
 
@@ -426,6 +423,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sonata搭建步骤"><span class="nav-number">2.</span> <span class="nav-text">Sonata搭建步骤</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -441,20 +439,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -502,13 +500,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">118k</span>
+    <span title="站点总字数">119k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:47</span>
+    <span title="站点阅读时长">1:48</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
