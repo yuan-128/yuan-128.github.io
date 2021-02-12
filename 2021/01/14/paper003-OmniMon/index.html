@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/2021/01/14/paper003-OmniMon/figure2.png">
 <meta property="article:published_time" content="2021-01-14T13:08:15.000Z">
-<meta property="article:modified_time" content="2021-01-29T09:28:17.039Z">
+<meta property="article:modified_time" content="2021-01-29T12:21:23.330Z">
 <meta property="article:author" content="你的名字">
 <meta property="article:tag" content="sketch">
 <meta name="twitter:card" content="summary">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-29 17:28:17" itemprop="dateModified" datetime="2021-01-29T17:28:17+08:00">2021-01-29</time>
+                <time title="修改时间：2021-01-29 20:21:23" itemprop="dateModified" datetime="2021-01-29T20:21:23+08:00">2021-01-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -363,7 +363,7 @@
 <h2 id="5-ACCOUNTABILITY（问责制）"><a href="#5-ACCOUNTABILITY（问责制）" class="headerlink" title="5. ACCOUNTABILITY（问责制）"></a>5. ACCOUNTABILITY（问责制）</h2><p>　　OmniMon通过在每个交换机、每个流量的基础上推断准确的流量损失来实现责任制，从而可以从每个交换机的共享slots中恢复每个流量值。我们的损失推理与经典的网络断层扫描（network tomography）[8，22]有关，然而后者由于网内可见性有限，往往只关注终端主机信息，目的是将精度损失降到最低。相比之下，我们的推理模型是全网的（覆盖所有终端主机和交换机），目标是完全准确。在这里，我们以加法流量值为目标，并在附录E中描述如何将非加法流量统计转换为加法值。</p>
 <h3 id="5-1-Problem"><a href="#5-1-Problem" class="headerlink" title="5.1 Problem"></a>5.1 Problem</h3><p>　　<strong>Motivating example.</strong>在不失通用性的前提下，我们把重点放在数据包数量上。我们将<strong>包丢失推理问题表述为求解一个线性方程系统</strong>（简称线性系统），其中变量代表单个的每台交换机、每个流量的包丢失。然而，线性系统可能有多个可行的解（即我们无法唯一地推断出准确的数据包损失）。我们考虑一个玩具的例子（toy example）(图5)，促使问题的解决。假设有两个有损流量𝑓1和𝑓2，这两个流量都通过交换机𝑠1和𝑠2，并且在两个交换机中共用同一个slots。根据源端主机和目的端主机中的流量值，我们知道每个流量正好丢失一个数据包。但是，我们无法判断每个交换机中哪个流量的数据包被丢弃：要么𝑠1丢弃𝑓1的数据包，而𝑠2丢弃𝑓2的数据包；要么𝑠1丢弃𝑓2的数据包，而𝑠2丢弃𝑓1的数据包。</p>
 <p>　　上面的例子显示了一种极端的情况，即即使只有两个有损失的流，也会使精确的丢包推断变得不可行。尽管如此，通过加入数据中心网络的特性，我们可以设计一种协同的流量映射算法（§5.2），将流量映射到不同的交换机slots。该算法简化了线性系统，避免了图5中的极端情况。它还返回了普通情况下每个交换机、每个流包损失的唯一解。</p>
-<p>　　<strong>Formulation.</strong>（构想出，规划；确切地阐述；用公式表示）让 𝑛 是有损流的数量(𝑓1， - - ， 𝑓𝑛)， 𝑚是交换机的数量(𝑠1， - - ， 𝑠𝑚)。让kt是交换机st的slots数量，损耗流被映射到其中(1≤𝑡≤𝑚)。例如，图5中有𝑛 = 2，𝑚 = 2，𝑘1 = 1，𝑘2 = 1。<font color="red">我们将全网丢包推理问题表述为一个线性系统</font>，如下。</p>
+<p>　　<strong>Formulation.</strong>（构想出，规划；确切地阐述；用公式表示）让 𝑛 是有损流的数量(𝑓1， - - ， 𝑓𝑛)， 𝑚是交换机的数量(𝑠1， - - ， 𝑠𝑚)。让$k_t$是交换机$s_t$的slots数量，损耗流被映射到其中(1≤𝑡≤𝑚)。例如，图5中有𝑛 = 2，𝑚 = 2，𝑘1 = 1，𝑘2 = 1。<font color="red">我们将全网丢包推理问题表述为一个线性系统</font>，如下。</p>
 <ul>
 <li><p><em>Variables:</em> 设$x_i$(1≤𝑖≤𝑚𝑛)为一个变量，量化每台交换机、每个流的丢包量(以丢包数为单位)，这样$𝑥_1$～$𝑥_𝑛$分别为$𝑓_1$～$𝑓_𝑛$在$𝑠_1$的丢包量，$x_{n+1}$～$x_{2n}$分别为$𝑓_1$～$𝑓_𝑛$在$𝑠_2$的丢包量，以此类推。例如，在图5中，我们定义了四个变量：$𝑥_1$和$𝑥_2$分别是$𝑓_1$和$𝑓_2$在$𝑠_1$中的数据包损失，而$𝑥_3$和$𝑥_4$分别是$𝑓_1$和$𝑠_2$中的数据包损失。</p>
 </li>
@@ -550,20 +550,20 @@ A=\left[\begin{array}{cccc}M_{1} & 0 & \cdots & 0 \\0 & M_{2} & \cdots & 0 \\\vd
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -611,13 +611,13 @@ A=\left[\begin{array}{cccc}M_{1} & 0 & \cdots & 0 \\0 & M_{2} & \cdots & 0 \\\vd
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">119k</span>
+    <span title="站点总字数">122k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:48</span>
+    <span title="站点阅读时长">1:51</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
