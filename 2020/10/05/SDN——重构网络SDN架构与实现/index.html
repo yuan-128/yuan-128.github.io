@@ -284,28 +284,28 @@
         <p>《重构网络SDN架构与实现》</p>
 <p>定位：提供清晰的SDN学习路线</p>
 <a id="more"></a>
-
 <h1 id="第一章-SDN重塑网络"><a href="#第一章-SDN重塑网络" class="headerlink" title="第一章 SDN重塑网络"></a>第一章 SDN重塑网络</h1><ol>
 <li><p>SDN出现的原因：市场需求决定技术发展，需要拥有更多具有可编程能力的网络来支持快速增长的网络业务需求。</p>
 </li>
 <li><p>SDN架构的来源：分析计算机产业创新模式的基础上，对传统网络系统的三部分功能模块进行了重新划分，在每层之间建立统一的开放接口，从而形成类似计算机架构的SDN体系结构。</p>
-<p><img src="/2020/10/05/SDN%E2%80%94%E2%80%94%E9%87%8D%E6%9E%84%E7%BD%91%E7%BB%9CSDN%E6%9E%B6%E6%9E%84%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E4%BC%A0%E7%BB%9F%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84%E5%90%91SDN%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt></p>
+<p><img src="/2020/10/05/SDN%E2%80%94%E2%80%94%E9%87%8D%E6%9E%84%E7%BD%91%E7%BB%9CSDN%E6%9E%B6%E6%9E%84%E4%B8%8E%E5%AE%9E%E7%8E%B0/传统网络架构向SDN架构演进示意图.png" alt></p>
 </li>
 <li><p>网络可编程能力演进过程：</p>
-<p><img src="/2020/10/05/SDN%E2%80%94%E2%80%94%E9%87%8D%E6%9E%84%E7%BD%91%E7%BB%9CSDN%E6%9E%B6%E6%9E%84%E4%B8%8E%E5%AE%9E%E7%8E%B0/%E7%BD%91%E7%BB%9C%E5%8F%AF%E7%BC%96%E7%A8%8B%E8%83%BD%E5%8A%9B%E6%BC%94%E8%BF%9B%E5%8F%B2.png" alt></p>
+<p><img src="/2020/10/05/SDN%E2%80%94%E2%80%94%E9%87%8D%E6%9E%84%E7%BD%91%E7%BB%9CSDN%E6%9E%B6%E6%9E%84%E4%B8%8E%E5%AE%9E%E7%8E%B0/网络可编程能力演进史.png" alt></p>
 </li>
 <li><p>SDN的三个特征：(1).网络开放可编程；(2).控制平面和数据平面的分离；两者可以独立完成体系结构的演进，类似于计算机工业的Wintel模式，双方只需要遵循统一的开放接口进行通信即可；这是SDN架构区别于传统网络体系结构的重要标志；(3).对分布式网络状态在逻辑上的集中控制；</p>
 </li>
 <li><p>SDN三个特征之间的关系：数控分离为逻辑集中控制创造了条件，逻辑集中控制为开放可编程控制提供了架构基础；从而网络开放可编程是SDN的核心特征；</p>
 </li>
 <li><p>SDN网络体系结构：SDN网络应用、北向接口、SDN控制器、南向接口和SDN数据平面五部分；</p>
-<p><img src="/2020/10/05/SDN%E2%80%94%E2%80%94%E9%87%8D%E6%9E%84%E7%BD%91%E7%BB%9CSDN%E6%9E%B6%E6%9E%84%E4%B8%8E%E5%AE%9E%E7%8E%B0/SDN%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt></p>
+<p><img src="/2020/10/05/SDN%E2%80%94%E2%80%94%E9%87%8D%E6%9E%84%E7%BD%91%E7%BB%9CSDN%E6%9E%B6%E6%9E%84%E4%B8%8E%E5%AE%9E%E7%8E%B0/SDN体系架构图.png" alt></p>
 </li>
 <li><p>SDN发展历史：</p>
    <p align="center">SDN前期标志性事件</p>
 
 </li>
 </ol>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -314,7 +314,8 @@
 <th>影响力</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>2007年</td>
 <td>Ethane项目论发表</td>
 <td>SDN架构的雏形，论文发表获得了学术圈的关注</td>
@@ -349,9 +350,12 @@
 <td>ONF成立</td>
 <td>SDN获得工业界的广泛关注</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p align="center">SDN中期标志性事件</p>
 
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -360,7 +364,8 @@
 <th>影响力</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>2012年</td>
 <td>Google发布SDN应用案例</td>
 <td>第一个SDN商用部署案例</td>
@@ -390,7 +395,9 @@
 <td>SD-WAN商用产品的出现</td>
 <td>第二个SDN成熟应用市场出现</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>8. </p>
 
     </div>
@@ -492,7 +499,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
